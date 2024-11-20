@@ -16,6 +16,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io")
+    }
+    versionCatalogs {
+        create("libs") {
+            plugin("hilt", "com.google.dagger.hilt.android").version("2.49")
+        }
     }
 }
 
