@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import androidx.navigation.fragment.findNavController
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.base.BaseFragment
+import com.yun.yunseoultransportation.base.setOnSingleClickListener
 import com.yun.yunseoultransportation.databinding.FragmentSubwayBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,5 +23,9 @@ class SubwayFragment : BaseFragment<FragmentSubwayBinding, SubwayViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnBack.setOnSingleClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

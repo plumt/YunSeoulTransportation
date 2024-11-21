@@ -1,13 +1,13 @@
 package com.yun.yunseoultransportation.ui.home
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.base.BaseFragment
+import com.yun.yunseoultransportation.base.setOnSingleClickListener
 import com.yun.yunseoultransportation.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,5 +24,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnMove.setOnSingleClickListener {
+            navigate(R.id.action_homeFragment_to_subwayFragment)
+        }
     }
 }
