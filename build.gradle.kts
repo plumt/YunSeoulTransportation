@@ -11,6 +11,6 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     id("com.android.library") version "7.3.1" apply false
-    kotlin("kapt") version "1.9.0"
+    kotlin("kapt") version "1.9.21"
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
 }
