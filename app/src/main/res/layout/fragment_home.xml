@@ -24,12 +24,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_move"
+            android:id="@+id/btn_subway"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="move subway"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_bus"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <Button
+            android:id="@+id/btn_bus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="move bus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_subway"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
 

@@ -24,8 +24,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnMove.setOnSingleClickListener {
+        binding.btnSubway.setOnSingleClickListener {
             navigate(R.id.action_homeFragment_to_subwayFragment)
+        }
+        binding.btnBus.setOnSingleClickListener {
+            navigate(R.id.action_homeFragment_to_busFragment)
         }
     }
 }
