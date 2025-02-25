@@ -83,4 +83,18 @@ dependencies {
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation (libs.androidx.navigation.ui.ktx)
+
+    //okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.3.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
+
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.7.1")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.7.1")
+    implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+
+    implementation(project(":domain"))
+    implementation(project(":data"))
 }

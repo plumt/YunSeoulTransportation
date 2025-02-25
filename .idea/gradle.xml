@@ -11,6 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$/../../../새 볼륨/workspace/YunSeoulTransportation" />
             <option value="$PROJECT_DIR$/../../../새 볼륨/workspace/YunSeoulTransportation/app" />
+            <option value="$PROJECT_DIR$/../../../새 볼륨/workspace/YunSeoulTransportation/data" />
+            <option value="$PROJECT_DIR$/../../../새 볼륨/workspace/YunSeoulTransportation/domain" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

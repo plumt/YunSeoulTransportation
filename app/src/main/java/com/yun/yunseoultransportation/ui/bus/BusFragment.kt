@@ -21,5 +21,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.test()
     }
 }
