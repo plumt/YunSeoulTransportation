@@ -95,6 +95,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.7.1")
     implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
+    // 카카오맵
+    implementation("com.kakao.maps.open:android:2.11.9")
+
     implementation(project(":domain"))
     implementation(project(":data"))
 }
