@@ -14,10 +14,20 @@ class BusViewModel @Inject constructor(
     private val busUseCase: BusUseCase
 ) : ViewModel(){
 
-    fun test() {
+    fun getBusPosByVehId() {
         viewModelScope.launch {
             busUseCase.getBusPosByVehId("111033115").onSuccess {
                 Log.d("yslee","getBusPosByVehId : $it")
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
+
+    fun getBusPosByRtid() {
+        viewModelScope.launch {
+            busUseCase.getBusPosByRtid("100100118").onSuccess {
+                Log.d("yslee","getBusPosByRtid : $it")
             }.onFailure {
                 it.printStackTrace()
             }

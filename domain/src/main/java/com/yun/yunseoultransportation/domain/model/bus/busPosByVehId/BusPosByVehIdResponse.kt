@@ -10,19 +10,22 @@ data class MsgBody(
 )
 
 data class ItemList(
-    val stopFlag: Int,          // 정류소도착여부
+    val sectOrd: String,        // 구간순번
+    val sectDist: String,       // 구간옵셋거리(Km)
+    val stopFlag: Int,          // 정류소도착여부 (0:운행중, 1:도착)
+    val sectionId: String,      // 구간 ID
     val dataTm: String,         // 제공시간
-    val tmX: String,            // 맵매칭X좌표
-    val tmY: String,            // 맵매칭Y좌표
+    val tmX: String,            // 맵매칭X좌표(WGS84)
+    val tmY: String,            // 맵매칭Y좌표(WGS84)
     val plainNo: String,        // 차량번호
-    val busType: Int,           // 차량유형
+    val busType: Int,           // 차량유형 (0:일반버스, 1:저상버스, 2:굴절버스)
     val vehId: String,          // 버스ID
     val posX: String,           // 맵매칭X좌표 (GRS80)
     val posY: String,           // 맵매칭Y좌표 (GRS80)
     val lastStnId: String,      // 최종정류장 ID
     val stId: String,           // 정류소ID
-    val isFullFlag: Boolean,    // 만차여부
-    val congetion: Int,         // 차량내부 혼잡도
+    val isFullFlag: Int,        // 만차여부(0 : 만차아님, 1: 만차)
+    val congetion: Int,         // 혼잡도(0 : 없음, 3 : 여유, 4 : 보통, 5 : 혼잡, 6 : 매우혼잡)
     val stOrd: String           // 정류소순번
 )
 

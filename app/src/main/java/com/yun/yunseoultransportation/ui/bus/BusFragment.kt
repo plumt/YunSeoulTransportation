@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.base.BaseFragment
+import com.yun.yunseoultransportation.base.setOnSingleClickListener
 import com.yun.yunseoultransportation.databinding.FragmentBusBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +23,17 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.test()
+        binding.btnGetBusPosByRtid.setOnSingleClickListener(listener = onSingleClickListener)
+        binding.btnGetBusPosByVehId.setOnSingleClickListener(listener = onSingleClickListener)
+
+
+
+    }
+
+    private val onSingleClickListener: (View) -> Unit = {
+        when (it.id) {
+            binding.btnGetBusPosByVehId.id -> viewModel.getBusPosByVehId()
+            binding.btnGetBusPosByRtid.id -> viewModel.getBusPosByRtid()
+        }
     }
 }
