@@ -6,12 +6,17 @@ import com.yun.yunseoultransportation.data.datasource.BusDataSource
 import com.yun.yunseoultransportation.data.datasource.BusDataSourceImpl
 import com.yun.yunseoultransportation.data.datasource.PathDataSource
 import com.yun.yunseoultransportation.data.datasource.PathDataSourceImpl
+import com.yun.yunseoultransportation.data.datasource.SearchDataSource
+import com.yun.yunseoultransportation.data.datasource.SearchDataSourceImpl
 import com.yun.yunseoultransportation.data.remote.api.BusApiService
 import com.yun.yunseoultransportation.data.remote.api.PathApiService
+import com.yun.yunseoultransportation.data.remote.api.SearchApiService
 import com.yun.yunseoultransportation.data.repository.BusRepositoryImpl
 import com.yun.yunseoultransportation.data.repository.PathRepositoryImpl
+import com.yun.yunseoultransportation.data.repository.SearchRepositoryImpl
 import com.yun.yunseoultransportation.domain.repository.BusRepository
 import com.yun.yunseoultransportation.domain.repository.PathRepository
+import com.yun.yunseoultransportation.domain.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -78,5 +83,21 @@ object ApiModule {
     @Singleton
     fun providePathRepository(pathDataSource: PathDataSource): PathRepository {
         return PathRepositoryImpl(pathDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchDataSource(
+        context: Context,
+        client: OkHttpClient
+    ): SearchDataSource {
+        val retrofit = provideRetrofit(context, client, "https://dapi.kakao.com/v2/")
+        return SearchDataSourceImpl(retrofit.create(SearchApiService::class.java))
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchRepository(searchDataSource: SearchDataSource): SearchRepository {
+        return SearchRepositoryImpl(searchDataSource)
     }
 }

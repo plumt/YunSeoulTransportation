@@ -28,6 +28,7 @@ object NetworkModule {
         val cache = Cache(context.cacheDir, cacheSize)
         return OkHttpClient.Builder()
             .cache(cache)
+            .addInterceptor(KakaoAuthInterceptor("19589e0aaca9b5da11b10fa3870a2e37")) // 카카오 인증 인터셉터 추가
 //            .addInterceptor(LoggingInterceptor())
             .addNetworkInterceptor(NetworkCacheInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply {
@@ -54,6 +55,24 @@ class NetworkCacheInterceptor : Interceptor {
                 .build()
         } else {
             response
+        }
+    }
+}
+
+class KakaoAuthInterceptor(private val apiKey: String) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        val requestUrl = request.url.toString()
+
+        // 카카오 API 요청인 경우에만 헤더 추가
+        return if (requestUrl.contains("dapi.kakao.com")) {
+            val newRequest = request.newBuilder()
+                .addHeader("Authorization", "KakaoAK $apiKey")
+                .build()
+            chain.proceed(newRequest)
+        } else {
+            // 카카오 API가 아닌 경우 원래 요청 그대로 진행
+            chain.proceed(request)
         }
     }
 }

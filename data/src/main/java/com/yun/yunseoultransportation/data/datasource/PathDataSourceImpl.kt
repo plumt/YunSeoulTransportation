@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class PathDataSourceImpl @Inject constructor(
     private val pathApiService: PathApiService
-) : PathDataSource{
+) : PathDataSource {
 
     override suspend fun getPathInfoByBusNSub(pathInfoByBusNSubRequest: PathInfoByBusNSubRequest): PathInfoByBusNSubResponse {
         return pathApiService.getPathInfoByBusNSub(
