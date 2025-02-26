@@ -1,6 +1,8 @@
 package com.yun.yunseoultransportation.data.datasource
 
 import com.yun.yunseoultransportation.data.remote.api.PathApiService
+import com.yun.yunseoultransportation.domain.model.path.locationInfoList.LocationInfoListRequest
+import com.yun.yunseoultransportation.domain.model.path.locationInfoList.LocationInfoListResponse
 import com.yun.yunseoultransportation.domain.model.path.pathInfoByBusNSub.PathInfoByBusNSubRequest
 import com.yun.yunseoultransportation.domain.model.path.pathInfoByBusNSub.PathInfoByBusNSubResponse
 import javax.inject.Inject
@@ -17,6 +19,14 @@ class PathDataSourceImpl @Inject constructor(
             endY = pathInfoByBusNSubRequest.endY,
             serviceKey = pathInfoByBusNSubRequest.serviceKey,
             resultType = pathInfoByBusNSubRequest.resultType
+        )
+    }
+
+    override suspend fun getLocationInfoList(locationInfoListRequest: LocationInfoListRequest): LocationInfoListResponse {
+        return pathApiService.getLocationInfoList(
+            stSrch = locationInfoListRequest.stSrch,
+            serviceKey = locationInfoListRequest.serviceKey,
+            resultType = locationInfoListRequest.resultType
         )
     }
 }

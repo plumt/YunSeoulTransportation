@@ -13,6 +13,8 @@ class PathViewModel @Inject constructor(
     private val pathUseCase: PathUseCase
 ) : ViewModel(){
     fun getPathInfoByBusNSub(){
+        getLocationInfoList("화곡")
+        return
         viewModelScope.launch {
             pathUseCase.getPathInfoByBusNSub(
                 startX = "127.0659",
@@ -28,5 +30,16 @@ class PathViewModel @Inject constructor(
                 it.printStackTrace()
             }
         }
+    }
+
+    fun getLocationInfoList(stSrch: String){
+        viewModelScope.launch {
+            pathUseCase.getLocationInfoList(stSrch).onSuccess {
+                Log.d("yslee","getLocationInfoList : $it")
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+
     }
 }
