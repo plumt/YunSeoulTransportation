@@ -41,4 +41,14 @@ class BusViewModel @Inject constructor(
             }
         }
     }
+
+    fun getBusRouteList() {
+        viewModelScope.launch {
+            busUseCase.getBusRouteList("146").onSuccess {
+                Log.d("yslee","getBusRouteList : $it")
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
 }

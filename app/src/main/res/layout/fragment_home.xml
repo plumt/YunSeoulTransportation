@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="move subway"
-            app:layout_constraintEnd_toStartOf="@id/btn_bus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
@@ -38,8 +38,17 @@
             android:layout_height="wrap_content"
             android:text="move bus"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_subway"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_subway" />
+
+        <Button
+            android:id="@+id/btn_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="move path"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_bus" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

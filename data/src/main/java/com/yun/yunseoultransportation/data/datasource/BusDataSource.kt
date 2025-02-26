@@ -4,8 +4,11 @@ import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtid
 import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtidResponse
 import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdRequest
 import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdResponse
+import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListRequest
+import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
 
 interface BusDataSource {
     suspend fun getBusPosByVehId(busPosByVehIdRequest: BusPosByVehIdRequest): BusPosByVehIdResponse
     suspend fun getBusPosByRtid(busPosByRtidRequest: BusPosByRtidRequest): BusPosByRtidResponse
+    suspend fun getBusRouteList(busRouteListRequest: BusRouteListRequest): BusRouteListResponse
 }

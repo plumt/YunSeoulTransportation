@@ -32,6 +32,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>() {
 
         binding.btnGetBusPosByRtid.setOnSingleClickListener(listener = onSingleClickListener)
         binding.btnGetBusPosByVehId.setOnSingleClickListener(listener = onSingleClickListener)
+        binding.btnGetBusRouteList.setOnSingleClickListener(listener = onSingleClickListener)
 
 
         binding.mapView.start(object : MapLifeCycleCallback() {
@@ -51,7 +52,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>() {
                 busData.forEach { item ->
                     kakaoMapManager.addMarker(item)
                 }
-                kakaoMapManager.bounces(view, busData)
+                kakaoMapManager.bounces(busData)
             }
         }
 
@@ -62,6 +63,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>() {
         when (it.id) {
             binding.btnGetBusPosByVehId.id -> viewModel.getBusPosByVehId()
             binding.btnGetBusPosByRtid.id -> viewModel.getBusPosByRtid()
+            binding.btnGetBusRouteList.id -> viewModel.getBusRouteList()
         }
     }
 }

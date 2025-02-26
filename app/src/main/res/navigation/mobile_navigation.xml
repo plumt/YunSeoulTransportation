@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_busFragment"
             app:destination="@id/busFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pathFragment"
+            app:destination="@id/pathFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_subway"
@@ -33,4 +36,9 @@
         android:id="@+id/busFragment"
         android:name="com.yun.yunseoultransportation.ui.bus.BusFragment"
         android:label="BusFragment" />
+    <fragment
+        tools:layout="@layout/fragment_path"
+        android:id="@+id/pathFragment"
+        android:name="com.yun.yunseoultransportation.ui.path.PathFragment"
+        android:label="PathFragment" />
 </navigation>

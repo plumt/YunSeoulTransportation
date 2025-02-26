@@ -29,7 +29,7 @@ class KakaoMapManager(private val kakaoMap: KakaoMap) {
         kakaoMap.labelManager?.removeAllLabelLayer()
     }
 
-    fun bounces(view: View, data: List<BusDataModel>) {
+    fun bounces(data: List<BusDataModel>) {
         val latLng: Array<LatLng> =
             data.map { item -> LatLng.from(item.latitude.toDouble(), item.longitude.toDouble()) }
                 .toTypedArray()

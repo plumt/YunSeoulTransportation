@@ -5,6 +5,8 @@ import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtid
 import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtidResponse
 import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdRequest
 import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdResponse
+import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListRequest
+import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
 import javax.inject.Inject
 
 class BusDataSourceImpl @Inject constructor(
@@ -26,6 +28,14 @@ class BusDataSourceImpl @Inject constructor(
             endOrd = busPosByRtidRequest.endOrd,
             serviceKey = busPosByRtidRequest.serviceKey,
             resultType = busPosByRtidRequest.resultType
+        )
+    }
+
+    override suspend fun getBusRouteList(busRouteListRequest: BusRouteListRequest): BusRouteListResponse {
+        return busApiService.getBusRouteList(
+            strSrch = busRouteListRequest.strSrch,
+            serviceKey = busRouteListRequest.serviceKey,
+            resultType = busRouteListRequest.resultType
         )
     }
 }
