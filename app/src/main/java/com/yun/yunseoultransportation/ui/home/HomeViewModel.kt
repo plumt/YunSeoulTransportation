@@ -11,16 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val searchUseCase: SearchUseCase
+
 ) : ViewModel() {
 
 
-    fun keywordSearch(keyword: String){
-        viewModelScope.launch {
-            searchUseCase.keywordSearch(KeywordSearchRequest(query = keyword)
-            ).onSuccess {
-                Log.d("yslee","keyworkSearch(${keyword}) : $it")
-            }.onFailure { it.printStackTrace() }
-        }
-    }
 }

@@ -34,6 +34,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             navigate(R.id.action_homeFragment_to_pathFragment)
         }
 
-        viewModel.keywordSearch("오픈잇")
     }
 }
