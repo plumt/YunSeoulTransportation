@@ -31,4 +31,10 @@ data class Documents(
     val category_group_name: String,    // 중요 카테고리만 그룹핑한 카테고리 그룹명
     val x: String,                  // X 좌표값, 경위도인 경우 longitude (경도)
     val y: String                   // Y 좌표값, 경위도인 경우 latitude(위도)
-)
+) {
+//    fun category(): String {
+//        return if(!category_group_name.isNullOrEmpty()) category_group_name else category_name
+//    }
+
+    fun address(): String = if(!road_address_name.isNullOrEmpty()) road_address_name else address_name
+}

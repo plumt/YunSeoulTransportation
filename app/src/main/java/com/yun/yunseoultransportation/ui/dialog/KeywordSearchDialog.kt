@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import com.yun.yunseoultransportation.BR
@@ -38,6 +39,7 @@ class KeywordSearchDialog(
     override fun dismiss() {
         super.dismiss()
         keyword = ""
+        binding.etInput.setText("")
         keywordSearchInterface.onDismiss()
     }
 
@@ -57,9 +59,11 @@ class KeywordSearchDialog(
 
         binding.etInput.doOnTextChanged { text, start, before, count -> keyword = text.toString() }
         binding.btnKeywordSearch.setOnSingleClickListener {
-            keywordSearchInterface.keywordResult(
-                keyword
-            )
+            if (keyword.isNotEmpty()) {
+                keywordSearchInterface.keywordResult(keyword)
+            } else {
+                Toast.makeText(context, "검색어를 입력해 주세요", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.rvKeywordSearch.run {
