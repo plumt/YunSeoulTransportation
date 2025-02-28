@@ -2,7 +2,6 @@ package com.yun.yunseoultransportation.base
 
 import android.graphics.Canvas
 import android.graphics.Rect
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +28,6 @@ abstract class BaseRecyclerViewAdapter {
         private val bindingListener: Int
     ) : RecyclerView.Adapter<BaseViewHolder<B>>(), OnItemClickListener<T, View>, Filterable {
 
-//        var mItems = ListLiveData<T>()
         var mItems = MutableLiveData<ArrayList<T>>(arrayListOf())
 
         override fun getFilter(): Filter? = null
@@ -47,15 +45,8 @@ abstract class BaseRecyclerViewAdapter {
         }
 
         fun replaceAll(items: List<T>) {
-//            if (isClear) {
-//                mItems.value = null
-//            }
-//            val temp: List<T> = mItems.value ?: emptyList()
-//            temp.plus(items)
-//            mItems.value = temp
             mItems.value!!.clear()
             mItems.value!!.addAll(items)
-            Log.d("yslee","mItems.value > ${mItems.value}")
             val result = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize(): Int {
                     return mItems.value?.size ?: 0
@@ -82,7 +73,6 @@ abstract class BaseRecyclerViewAdapter {
                 }
             })
             result.dispatchUpdatesTo(this)
-            Log.d("yslee","mItems > ${mItems.value}")
             notifyDataSetChanged()
         }
 

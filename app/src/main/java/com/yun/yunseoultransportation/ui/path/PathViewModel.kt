@@ -33,6 +33,10 @@ class PathViewModel @Inject constructor(
         }
     }
 
+    fun clearKeywordSearchDataList() {
+        _searchInfoList.value = arrayListOf()
+    }
+
 
     fun getPathInfoByBusNSub(){
         viewModelScope.launch {

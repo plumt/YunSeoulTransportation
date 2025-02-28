@@ -3,7 +3,6 @@ package com.yun.yunseoultransportation.ui.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.widget.doOnTextChanged
@@ -17,10 +16,15 @@ import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Document
 import com.yun.yunseoultransportation.util.extensions.dialogResize
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 
+interface KeywordSearchInterface {
+    fun keywordResult(keyword: String)
+    fun onSelectedItem(item: Documents)
+    fun onDismiss()
+}
+
 class KeywordSearchDialog(
     private val context: Context,
-//    private val onSearchResult: (KeywordSearchResponse) -> Unit
-    private val keywordResult: (String) -> Unit
+    private val keywordSearchInterface: KeywordSearchInterface
 ) : Dialog(context, R.style.FullScreenDialogStyle) {
     private lateinit var binding: DialogKeywordSearchBinding
     private var keyword: String = ""
@@ -29,6 +33,12 @@ class KeywordSearchDialog(
         if (this::binding.isInitialized) {
             binding.setVariable(BR.searchData, searchInfoList)
         }
+    }
+
+    override fun dismiss() {
+        super.dismiss()
+        keyword = ""
+        keywordSearchInterface.onDismiss()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +56,11 @@ class KeywordSearchDialog(
         keyword = "메가박스"
 
         binding.etInput.doOnTextChanged { text, start, before, count -> keyword = text.toString() }
-        binding.btnKeywordSearch.setOnSingleClickListener { keywordResult(keyword) }
+        binding.btnKeywordSearch.setOnSingleClickListener {
+            keywordSearchInterface.keywordResult(
+                keyword
+            )
+        }
 
         binding.rvKeywordSearch.run {
             adapter = object :
@@ -57,7 +71,20 @@ class KeywordSearchDialog(
                 ) {
                 override fun onItemLongClick(item: Documents, view: View): Boolean = true
                 override fun onItemClick(item: Documents, view: View) {
-                    Log.d("yslee", "onItemClick : $item")
+                    keywordSearchInterface.onSelectedItem(item)
+
+                    //Documents(
+                    // place_name=메가박스 강남,
+                    // distance=,
+                    // place_url=http://place.map.kakao.com/10609442,
+                    // category_name=문화,예술 > 영화,영상 > 영화관 > 메가박스,
+                    // address_name=서울 서초구 서초동 1317-20,
+                    // road_address_name=서울 서초구 서초대로77길 3,
+                    // id=10609442, phone=1544-0070,
+                    // category_group_code=CT1,
+                    // category_group_name=문화시설,
+                    // x=127.026417015264,
+                    // y=37.4979560555237)
                 }
             }
 //            addItemDecoration(RecyclerViewDecorationHorizontal(7f.fromDpToPx()))
