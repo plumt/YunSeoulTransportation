@@ -16,6 +16,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:clickable="true"
+        android:onClick="@{(v) -> keywordSearchInfoListener.onItemClick(itemKeyWordSearchInfo, v)}"
         android:layout_height="80dp">
 
         <TextView

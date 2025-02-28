@@ -8,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.base.BaseFragment
-import com.yun.yunseoultransportation.base.setOnSingleClickListener
 import com.yun.yunseoultransportation.databinding.FragmentSubwayBinding
+import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
