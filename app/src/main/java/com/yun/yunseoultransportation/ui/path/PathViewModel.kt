@@ -1,8 +1,12 @@
 package com.yun.yunseoultransportation.ui.path
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yun.yunseoultransportation.domain.model.path.locationInfoList.LocationInfoListResponse
+import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents
 import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.KeywordSearchRequest
 import com.yun.yunseoultransportation.domain.usecase.PathUseCase
 import com.yun.yunseoultransportation.domain.usecase.SearchUseCase
@@ -16,13 +20,15 @@ class PathViewModel @Inject constructor(
     private val searchUseCase: SearchUseCase
 ) : ViewModel(){
 
+    private val _searchInfoList = MutableLiveData<List<Documents>>()
+    val searchInfoList: LiveData<List<Documents>> get() = _searchInfoList
 
     fun keywordSearch(keyword: String){
         viewModelScope.launch {
             searchUseCase.keywordSearch(
                 KeywordSearchRequest(query = keyword)
             ).onSuccess {
-                Log.d("yslee","keyworkSearch(${keyword}) : $it")
+                _searchInfoList.value = it.documents
             }.onFailure { it.printStackTrace() }
         }
     }

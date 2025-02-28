@@ -8,12 +8,12 @@ import androidx.lifecycle.LiveData
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.MapLifeCycleCallback
-import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.BR
+import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFragment
-import com.yun.yunseoultransportation.base.setOnSingleClickListener
 import com.yun.yunseoultransportation.common.manager.map.KakaoMapManager
 import com.yun.yunseoultransportation.databinding.FragmentBusBinding
+import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
