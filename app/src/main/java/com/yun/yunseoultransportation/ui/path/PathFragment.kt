@@ -43,7 +43,34 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
         super.onViewCreated(view, savedInstanceState)
 
         keywordSearchDialog = KeywordSearchDialog(requireActivity(), this)
+        initialKakaoMap()
+        initialBottomSheet()
 
+        binding.cvInput.setOnSingleClickListener(listener = onSingleClickListener)
+        binding.bottomSheet.icBottomSheetContents.btnRoute.setOnSingleClickListener(listener = onSingleClickListener)
+
+        viewModel.searchInfoList.observe(viewLifecycleOwner) { searchInfoList ->
+            keywordSearchDialog.keywordSearchDataUpdate(searchInfoList)
+        }
+
+    }
+
+    private val onSingleClickListener: (View) -> Unit = {
+        when (it.id) {
+            binding.bottomSheet.icBottomSheetContents.btnRoute.id -> {
+                val x = viewModel.selectedDocument.value?.x
+                val y = viewModel.selectedDocument.value?.y
+                if (x != null && y != null) {
+                    viewModel.getPathInfoByBusNSub(x, y)
+                }
+            }
+
+            binding.cvInput.id -> keywordSearchDialog.show()
+        }
+    }
+
+    // 카카오맴 셋팅
+    private fun initialKakaoMap() {
         binding.mapView.start(object : MapLifeCycleCallback() {
             override fun onMapDestroy() {}
             override fun onMapError(p0: Exception?) {}
@@ -53,10 +80,10 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
 
             }
         })
+    }
 
-        binding.cvInput.setOnSingleClickListener {
-            keywordSearchDialog.show()
-        }
+    // 바텀시트 셋팅
+    private fun initialBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.bottomSheet).apply {
             addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -68,11 +95,6 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
             })
 
         }
-
-        viewModel.searchInfoList.observe(viewLifecycleOwner) { searchInfoList ->
-            keywordSearchDialog.keywordSearchDataUpdate(searchInfoList)
-        }
-
     }
 
     // 키워드 검샥
@@ -85,7 +107,7 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
         Log.d("yslee", "$${item}")
         keywordSearchDialog.dismiss()
         viewModel.selectDocument(item)
-        if(bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN){
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         val lat = item.y.toDouble()
@@ -100,10 +122,4 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
     // dialog close
     override fun onDismiss() {
     }
-
-    // 길찾기
-//    override fun onRoute(documents: Documents) {
-//        Log.d("yslee","길찾기 : $documents")
-//        viewModel.getPathInfoByBusNSub(documents.x, documents.y)
-//    }
 }
