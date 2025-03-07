@@ -23,6 +23,12 @@ class PathViewModel @Inject constructor(
     private val _searchInfoList = MutableLiveData<List<Documents>>()
     val searchInfoList: LiveData<List<Documents>> get() = _searchInfoList
 
+    private val _selectedDocument = MutableLiveData<Documents?>()
+    val selectedDocument: LiveData<Documents?> get() = _selectedDocument
+
+    private val _isBottomSheetVisible = MutableLiveData<Boolean>(false)
+    val isBottomSheetVisible: LiveData<Boolean> get() = _isBottomSheetVisible
+
     fun keywordSearch(keyword: String){
         viewModelScope.launch {
             searchUseCase.keywordSearch(
@@ -33,10 +39,15 @@ class PathViewModel @Inject constructor(
         }
     }
 
-    fun clearKeywordSearchDataList() {
-        _searchInfoList.value = arrayListOf()
+    fun selectDocument(documents: Documents) {
+        _selectedDocument.value = documents
+        _isBottomSheetVisible.value = true
     }
 
+    fun clearDocument(){
+        _selectedDocument.value = null
+        _isBottomSheetVisible.value = false
+    }
 
     fun getPathInfoByBusNSub(endX: String, endY: String){
         viewModelScope.launch {

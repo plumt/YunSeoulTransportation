@@ -51,6 +51,13 @@
             app:layout_constraintStart_toEndOf="@id/cv_input"
             app:layout_constraintTop_toTopOf="@id/cv_input" />
 
+        <include
+            android:id="@+id/bottom_sheet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            layout="@layout/view_bottom_sheet_document"
+            app:searchData="@{path.selectedDocument}"
+            app:isVisible="@{path.isBottomSheetVisible}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

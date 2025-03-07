@@ -38,8 +38,6 @@ class KeywordSearchDialog(
 
     override fun dismiss() {
         super.dismiss()
-        keyword = ""
-        binding.etInput.setText("")
         keywordSearchInterface.onDismiss()
     }
 

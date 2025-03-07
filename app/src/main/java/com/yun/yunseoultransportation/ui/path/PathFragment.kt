@@ -1,28 +1,30 @@
 package com.yun.yunseoultransportation.ui.path
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.camera.CameraPosition
+import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFragment
 import com.yun.yunseoultransportation.databinding.FragmentPathBinding
 import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents
-import com.yun.yunseoultransportation.ui.bottomsheet.document.DocumentBottomSheet
-import com.yun.yunseoultransportation.ui.bottomsheet.document.DocumentBottomSheetInterface
 import com.yun.yunseoultransportation.ui.dialog.KeywordSearchDialog
 import com.yun.yunseoultransportation.ui.dialog.KeywordSearchInterface
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), KeywordSearchInterface, DocumentBottomSheetInterface {
+class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), KeywordSearchInterface {
     override val viewModel: PathViewModel by viewModels()
     override fun getResourceId(): Int = R.layout.fragment_path
     override fun isLoading(): LiveData<Boolean>? = null
@@ -31,34 +33,46 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
     override fun setVariable(): Int = BR.path
 
     private lateinit var keywordSearchDialog: KeywordSearchDialog
-    private lateinit var documentBottomSheet: DocumentBottomSheet
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+
+    private lateinit var kakaoMap: KakaoMap
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         keywordSearchDialog = KeywordSearchDialog(requireActivity(), this)
-        documentBottomSheet = DocumentBottomSheet(this)
 
         binding.mapView.start(object : MapLifeCycleCallback() {
             override fun onMapDestroy() {}
             override fun onMapError(p0: Exception?) {}
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(kakaoMap: KakaoMap) {
+                this@PathFragment.kakaoMap = kakaoMap
 
             }
         })
 
-//        binding.btnKeywordSearch.setOnSingleClickListener {
-//            documentBottomSheet.show(requireActivity().supportFragmentManager, documentBottomSheet.tag)
-//        }
-
         binding.cvInput.setOnSingleClickListener {
             keywordSearchDialog.show()
+        }
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.bottomSheet).apply {
+            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                }
+
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                }
+            })
+
         }
 
         viewModel.searchInfoList.observe(viewLifecycleOwner) { searchInfoList ->
             keywordSearchDialog.keywordSearchDataUpdate(searchInfoList)
         }
+
     }
 
     // 키워드 검샥
@@ -68,20 +82,28 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
 
     // 리스트 아이템 선택
     override fun onSelectedItem(item: Documents) {
-        Log.d("yslee","$${item}")
+        Log.d("yslee", "$${item}")
         keywordSearchDialog.dismiss()
-        documentBottomSheet.onSelectedItem(item)
-        documentBottomSheet.show(requireActivity().supportFragmentManager, documentBottomSheet.tag)
+        viewModel.selectDocument(item)
+        if(bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN){
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        val lat = item.y.toDouble()
+        val lng = item.x.toDouble()
+        val cameraUpdate = CameraUpdateFactory.newCameraPosition(
+            CameraPosition.from(lat, lng, 12, 0.0, 0.0, 0.0)
+        )
+        kakaoMap.moveCamera(cameraUpdate)
+
     }
 
     // dialog close
     override fun onDismiss() {
-        viewModel.clearKeywordSearchDataList()
     }
 
     // 길찾기
-    override fun onRoute(documents: Documents) {
-        Log.d("yslee","길찾기 : $documents")
-        viewModel.getPathInfoByBusNSub(documents.x, documents.y)
-    }
+//    override fun onRoute(documents: Documents) {
+//        Log.d("yslee","길찾기 : $documents")
+//        viewModel.getPathInfoByBusNSub(documents.x, documents.y)
+//    }
 }

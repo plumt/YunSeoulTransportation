@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -43,7 +44,10 @@ class DocumentBottomSheet(
                 val behavior = BottomSheetBehavior.from(it)
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 behavior.skipCollapsed = true
-                behavior.isDraggable = true // 드래그 기능 막기
+                behavior.isDraggable = false // 드래그 기능 막기
+
+
+//                it.setBackgroundResource(android.R.color.transparent)
             }
 //            if (percent) setupRatio(bottomSheetDialog)
         }
@@ -59,7 +63,16 @@ class DocumentBottomSheet(
         binding = DialogDocumentBottomSheetBinding.inflate(inflater, container, false)
         // dialog의 배경을 투명하게 설정
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.setCancelable(true)
+        dialog?.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+        )
+        dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+//        dialog?.setCanceledOnTouchOutside(false)
+
+        val touchSideView = dialog!!.window?.decorView?.findViewById<View>(com.google.android.material.R.id.touch_outside)
+        touchSideView?.setOnClickListener { null }
 
         binding.setVariable(BR.searchData, documents)
 
@@ -75,5 +88,8 @@ class DocumentBottomSheet(
 
     fun onSelectedItem(documents: Documents){
         this.documents = documents
+        if(this::binding.isInitialized){
+            binding.setVariable(BR.searchData, documents)
+        }
     }
 }

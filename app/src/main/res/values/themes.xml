@@ -13,11 +13,10 @@
 
     <style name="RoundBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/RoundBottomSheet</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:colorBackground">#fff</item>
         <item name="colorAccent">#fff</item>
-        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
     </style>
