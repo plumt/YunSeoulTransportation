@@ -33,6 +33,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>() {
         binding.btnGetBusPosByRtid.setOnSingleClickListener(listener = onSingleClickListener)
         binding.btnGetBusPosByVehId.setOnSingleClickListener(listener = onSingleClickListener)
         binding.btnGetBusRouteList.setOnSingleClickListener(listener = onSingleClickListener)
+        binding.btnGetRoutePath.setOnSingleClickListener(listener = onSingleClickListener)
 
 
         binding.mapView.start(object : MapLifeCycleCallback() {
@@ -64,6 +65,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>() {
             binding.btnGetBusPosByVehId.id -> viewModel.getBusPosByVehId()
             binding.btnGetBusPosByRtid.id -> viewModel.getBusPosByRtid()
             binding.btnGetBusRouteList.id -> viewModel.getBusRouteList()
+            binding.btnGetRoutePath.id -> viewModel.getRoutePath()
         }
     }
 }

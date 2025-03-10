@@ -7,11 +7,21 @@ import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVeh
 import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdResponse
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListRequest
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
+import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathRequest
+import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathResponse
 import javax.inject.Inject
 
 class BusDataSourceImpl @Inject constructor(
     private val busApiService: BusApiService
 ) : BusDataSource {
+
+    override suspend fun getRoutePath(routePathRequest: RoutePathRequest): RoutePathResponse {
+        return busApiService.getRoutePath(
+            busRouteId = routePathRequest.busRouteId,
+            serviceKey = routePathRequest.serviceKey,
+            resultType = routePathRequest.resultType
+        )
+    }
 
     override suspend fun getBusPosByVehId(busPosByVehIdRequest: BusPosByVehIdRequest): BusPosByVehIdResponse {
         return busApiService.getBusPosByVehId(

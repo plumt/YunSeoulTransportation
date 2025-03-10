@@ -3,6 +3,7 @@ package com.yun.yunseoultransportation.data.remote.api
 import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtidResponse
 import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdResponse
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
+import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -33,4 +34,12 @@ interface BusApiService {
         @Query("serviceKey") serviceKey: String,
         @Query("resultType") resultType: String
     ): BusRouteListResponse
+
+    // 노선번호에 해당하는 지도상 경로 목록을 조회
+    @GET("busRouteInfo/getRoutePath")
+    suspend fun getRoutePath(
+        @Query("busRouteId") busRouteId: String,
+        @Query("serviceKey") serviceKey: String,
+        @Query("resultType") resultType: String
+    ): RoutePathResponse
 }

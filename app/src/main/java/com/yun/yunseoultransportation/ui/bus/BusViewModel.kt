@@ -39,7 +39,7 @@ class BusViewModel @Inject constructor(
     // 노선ID로 차량들의 위치정보를 조회한다
     fun getBusPosByRtid() {
         viewModelScope.launch {
-            busUseCase.getBusPosByRtid("100100216").onSuccess {
+            busUseCase.getBusPosByRtid("100100025").onSuccess {
                 val tempBusData = it.msgBody.itemList.map {
                     BusDataModel(
                         latitude = it.gpsY,
@@ -58,10 +58,30 @@ class BusViewModel @Inject constructor(
     // 노선번호에 해당하는 노선 목록 조회
     fun getBusRouteList() {
         viewModelScope.launch {
-            busUseCase.getBusRouteList("3217").onSuccess {
+            busUseCase.getBusRouteList("146").onSuccess {
             }.onFailure {
                 it.printStackTrace()
             }
         }
     }
+
+    fun getRoutePath() {
+        viewModelScope.launch {
+            busUseCase.getRoutePath("100100025").onSuccess {
+                Log.d("yslee","getRoutePath > ${it}")
+                val tempBusData = it.msgBody.itemList.map {
+                    BusDataModel(
+                        latitude = it.gpsY,
+                        longitude = it.gpsX,
+                        title = it.no
+                    )
+                }
+                _busData.value = tempBusData
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+
+    }
+
 }

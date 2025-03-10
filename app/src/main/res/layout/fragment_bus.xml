@@ -24,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="getBusPosByRtid"
-            app:layout_constraintEnd_toStartOf="@id/btn_getBusPosByVehId"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,18 +32,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="getBusPosByVehId"
-            app:layout_constraintEnd_toStartOf="@id/btn_getBusRouteList"
-            app:layout_constraintStart_toEndOf="@id/btn_getBusPosByRtid"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_getBusPosByRtid"
+             />
 
         <Button
             android:id="@+id/btn_getBusRouteList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="btn_getBusRouteList"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_getBusPosByVehId"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_getBusPosByVehId"/>
+
+        <Button
+            android:id="@+id/btn_getRoutePath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="btn_getRoutePath"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_getBusRouteList"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
