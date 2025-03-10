@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:checkable="true"
+        android:enabled="true"
+        android:icon="@drawable/outline_home_24"
+        android:title="home" />
+
+    <item
+        android:id="@+id/map"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/outline_map_24"
+        android:title="map" />
+
+
+    <item
+        android:id="@+id/departure"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/outline_departure_board_24"
+        android:title="departure" />
+
+    <item
+        android:id="@+id/favorite"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/outline_star_24"
+        android:title="favorite" />
+
+    <item
+        android:id="@+id/setting"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/outline_settings_24"
+        android:title="setting" />
+
+</menu>

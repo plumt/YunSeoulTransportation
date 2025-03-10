@@ -166,12 +166,3 @@ class RecyclerViewDecorationHorizontal(
         outRect.bottom = verticalMargin
     }
 }
-
-@BindingAdapter("replaceAll")
-fun RecyclerView.replace(list: List<Any>?) {
-    list?.let {
-        (adapter as? BaseRecyclerViewAdapter.Create<Any, *>)?.run {
-            replaceAll(it)
-        }
-    }
-}

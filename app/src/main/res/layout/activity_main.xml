@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="main"
             type="com.yun.yunseoultransportation.MainViewModel" />
@@ -14,17 +16,39 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".MainActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:background="@color/white"
             app:defaultNavHost="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navi"
             app:navGraph="@navigation/mobile_navigation" />
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navi"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            app:elevation="15dp"
+            app:itemActiveIndicatorStyle="@null"
+            android:outlineAmbientShadowColor="@color/black"
+            app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@color/bottom_navigation_item_selector"
+            app:itemRippleColor="@android:color/transparent"
+            app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+            app:itemTextAppearanceInactive="@style/BottomNavigationView"
+            app:itemTextColor="@color/bottom_navigation_item_selector"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_menu"
+            app:onNavigationItemSelected="@{(view, item) -> main.bottomNavTabEvent(item)}"
+            app:rippleColor="@android:color/transparent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
