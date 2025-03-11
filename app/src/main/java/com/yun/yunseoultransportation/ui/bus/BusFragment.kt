@@ -6,12 +6,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.naver.maps.map.MapFragment
-import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
+import com.naver.maps.map.NaverMap.LAYER_GROUP_TRAFFIC
 import com.naver.maps.map.OnMapReadyCallback
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFragment
+import com.yun.yunseoultransportation.common.manager.map.NaverMapManager
 import com.yun.yunseoultransportation.databinding.FragmentBusBinding
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,8 +26,8 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
     override fun onBackEvent() {}
     override fun setVariable(): Int = BR.bus
 
-//    private lateinit var kakaoMapManager: KakaoMapManager
-    private lateinit var naverMapView: MapFragment
+    private lateinit var naverMap: NaverMap
+    private lateinit var naverMapManager: NaverMapManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,34 +38,24 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
         binding.btnGetRoutePath.setOnSingleClickListener(listener = onSingleClickListener)
 
         val fm = childFragmentManager
-        naverMapView = fm.findFragmentById(binding.naverMapView.id) as MapFragment?
+        val naverMapView = fm.findFragmentById(binding.naverMapView.id) as MapFragment?
             ?: MapFragment.newInstance().also {
                 fm.beginTransaction().add(binding.naverMapView.id, it).commit()
             }
 
         naverMapView.getMapAsync(this)
 
-
-
-//        binding.mapView.start(object : MapLifeCycleCallback() {
-//            override fun onMapDestroy() {}
-//            override fun onMapError(p0: Exception?) {}
-//        }, object : KakaoMapReadyCallback() {
-//            override fun onMapReady(kakaoMap: KakaoMap) {
-//                kakaoMapManager = KakaoMapManager(kakaoMap)
-////                markerClickListener(kakaoMap)
-//            }
-//        })
+        viewModel.busPathData.observe(viewLifecycleOwner) { busPathData ->
+            if(busPathData.isNotEmpty() && this::naverMapManager.isInitialized){
+                naverMapManager.addPolyline(busPathData)
+            }
+        }
 
         viewModel.busData.observe(viewLifecycleOwner) { busData ->
-            Log.d("yslee","viewModel.busData.observe > $busData")
-//            if(busData.isNotEmpty()){
-//                kakaoMapManager.clearMarker()
-//                busData.forEach { item ->
-//                    kakaoMapManager.addMarker(item)
-//                }
-//                kakaoMapManager.bounces(busData)
-//            }
+            Log.d("yslee", "viewModel.busData.observe > $busData")
+            if (busData.isNotEmpty() && this::naverMapManager.isInitialized) {
+                naverMapManager.addMarkers(busData)
+            }
         }
 
 
@@ -80,6 +71,10 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
     }
 
     override fun onMapReady(naverMap: NaverMap) {
-        Log.d("yslee","onMapReady")
+        Log.d("yslee", "onMapReady")
+        this.naverMap = naverMap.apply {
+            setLayerGroupEnabled(LAYER_GROUP_TRAFFIC, true)
+        }
+        naverMapManager = NaverMapManager(naverMap)
     }
 }

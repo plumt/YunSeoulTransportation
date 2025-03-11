@@ -21,6 +21,9 @@ class BusViewModel @Inject constructor(
     private val _busData = MutableLiveData<List<BusDataModel>>()
     val busData: LiveData<List<BusDataModel>> get() = _busData
 
+    private val _busPathData = MutableLiveData<List<BusDataModel>>()
+    val busPathData: LiveData<List<BusDataModel>> get() = _busPathData
+
     // ItemList(distance=3029, time=19,
     // pathList=[PathList(routeId=100100216, routeNm=3217, fid=103000108, fname=화양사거리, fx=127.06665877903272, fy=37.54722861370906, tname=영동대교북단, tx=127.06074277599501, ty=37.53689623251369),
     // PathList(routeId=100100209, routeNm=2412, fid=103000093, fname=성수119안전센터, fx=127.05999640824214, fy=37.53748232701054, tname=뚝도아리수정수센터수도박물관, tx=127.04398681747286, ty=37.54135507952214)])
@@ -76,7 +79,7 @@ class BusViewModel @Inject constructor(
                         title = it.no
                     )
                 }
-                _busData.value = tempBusData
+                _busPathData.value = tempBusData
             }.onFailure {
                 it.printStackTrace()
             }
