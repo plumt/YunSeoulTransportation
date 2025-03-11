@@ -9,11 +9,33 @@ import com.kakao.vectormap.label.LabelOptions
 import com.kakao.vectormap.label.LabelStyle
 import com.kakao.vectormap.label.LabelStyles
 import com.kakao.vectormap.label.LabelTextBuilder
+import com.kakao.vectormap.label.PolylineLabel
+import com.kakao.vectormap.route.RouteLineSegment
+import com.kakao.vectormap.route.RouteLineStyle
+import com.kakao.vectormap.route.RouteLineStyles
+import com.kakao.vectormap.route.RouteLineStylesSet
+import com.kakao.vectormap.shape.MapPoints
+import com.kakao.vectormap.shape.PolylineOptions
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.common.model.BusDataModel
 import com.yun.yunseoultransportation.util.Util.fromDpToPx
+import java.util.Arrays
 
 class KakaoMapManager(private val kakaoMap: KakaoMap) {
+
+    fun addPolyline(data: List<BusDataModel>) {
+
+//        val layer = kakaoMap.routeLineManager?.layer
+//
+//        val busRouteLine = RouteLineStyles.from(RouteLineStyle.from(16f, Color.BLUE))
+//        val subwayRouteLine = RouteLineStyles.from(RouteLineStyle.from(16f, Color.RED))
+//
+//        val stylesSet = RouteLineStylesSet.from(busRouteLine, subwayRouteLine)
+//        val segments = Arrays.asList(RouteLineSegment.from(0,stylesSet.getStyles(0)))
+//
+//        val latLng = data.map { LatLng.from(it.latitude.toDouble(), it.longitude.toDouble()) }
+//        PolylineOptions.from(MapPoints.fromLatLng(latLng))
+    }
 
     fun addMarker(data: BusDataModel) {
         val icon = LabelStyle.from(R.drawable.ic_launcher_background).setTextStyles(20, Color.BLACK)

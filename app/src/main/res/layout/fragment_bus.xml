@@ -14,10 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.kakao.vectormap.MapView
-            android:id="@+id/map_view"
+<!--        <com.kakao.vectormap.MapView-->
+<!--            android:id="@+id/map_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/naver_map_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:name="com.naver.maps.map.MapFragment" />
 
         <Button
             android:id="@+id/btn_getBusPosByRtid"

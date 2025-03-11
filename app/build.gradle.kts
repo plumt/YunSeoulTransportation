@@ -98,6 +98,9 @@ dependencies {
     // 카카오맵
     implementation("com.kakao.maps.open:android:2.11.9")
 
+    // 네이버맵
+    implementation ("com.naver.maps:map-sdk:3.20.0")
+
     implementation(project(":domain"))
     implementation(project(":data"))
 }
