@@ -47,7 +47,8 @@ class BusViewModel @Inject constructor(
                     BusDataModel(
                         latitude = it.gpsY,
                         longitude = it.gpsX,
-                        title = it.plainNo
+                        title = it.plainNo,
+                        id = it.vehId
                     )
                 }
                 _busData.value = tempBusData
@@ -76,7 +77,8 @@ class BusViewModel @Inject constructor(
                     BusDataModel(
                         latitude = it.gpsY,
                         longitude = it.gpsX,
-                        title = it.no
+                        title = it.no,
+                        id = it.no
                     )
                 }
                 _busPathData.value = tempBusData
@@ -84,7 +86,6 @@ class BusViewModel @Inject constructor(
                 it.printStackTrace()
             }
         }
-
     }
 
 }

@@ -1,22 +1,17 @@
 package com.yun.yunseoultransportation
 
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.os.Build
+import android.net.wifi.aware.AttachCallback
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.yun.yunseoultransportation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.kakao.vectormap.KakaoMapSdk
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import java.util.Base64
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,11 +29,28 @@ class MainActivity : AppCompatActivity() {
             main = mainViewModel
         }
 
-        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).let {
+        (supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment).let {
             navController = it.navController
         }
 
         KakaoMapSdk.init(this, "9702ab8a9c569a86da0cbfa80a10a8f0")
+
+        binding.bottomNavi.setOnItemSelectedListener { item ->
+            val destinationId = when (item.itemId) {
+                R.id.menu_home -> R.id.homeFragment
+                R.id.menu_map -> R.id.mapFragment
+                else -> return@setOnItemSelectedListener false
+            }
+
+            // 현재 화면이면 이동하지 않음
+            if (navController.currentDestination?.id == destinationId) {
+                return@setOnItemSelectedListener false
+            }
+            navController.navigate(destinationId)
+
+            true
+        }
+
     }
 }
 

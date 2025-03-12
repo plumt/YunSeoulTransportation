@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="onClick"
+            type="kotlin.jvm.functions.Function0&lt;kotlin.Unit>" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="@{() -> onClick.invoke()}">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_input"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="#B3FFFFFF"
+            android:clickable="false"
+            app:cardCornerRadius="60dp"
+            app:layout_constraintEnd_toStartOf="@id/btn_keyword_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_keyword_search"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="@color/color_2381FF"
+            android:clickable="false"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/cv_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cv_input"
+            app:layout_constraintTop_toTopOf="@id/cv_input" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

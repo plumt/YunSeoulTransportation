@@ -44,9 +44,13 @@ object NetworkModule {
 class NetworkCacheInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
+        val request = chain.request()
+        // 요청 헤더에서 "Cache-Control: no-cache" 값이 있는지 확인
+        val shouldSkipCache = request.header("Cache-Control") == "no-cache"
         return if (response.code == 200) {
             val cacheControl = CacheControl.Builder()
-                .maxAge(1, TimeUnit.MINUTES)
+                .maxAge(1, if(shouldSkipCache) TimeUnit.SECONDS else TimeUnit.MINUTES)
+//                .maxAge(10, TimeUnit.SECONDS)
                 .build()
             response.newBuilder()
                 .removeHeader("Pragma")

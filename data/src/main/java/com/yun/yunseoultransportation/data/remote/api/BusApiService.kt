@@ -5,6 +5,7 @@ import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVeh
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
 import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathResponse
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface BusApiService {
@@ -19,6 +20,7 @@ interface BusApiService {
 
     // 노선ID로 차량들의 위치정보를 조회한다
     @GET("buspos/getBusPosByRtid")
+    @Headers("Cache-Control: no-cache")
     suspend fun getBusPosByRtid(
         @Query("busRouteId") busRouteId: String,
         @Query("startOrd") startOrd: String,

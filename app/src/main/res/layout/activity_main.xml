@@ -47,8 +47,8 @@
             app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_menu"
-            app:onNavigationItemSelected="@{(view, item) -> main.bottomNavTabEvent(item)}"
             app:rippleColor="@android:color/transparent" />
+<!--        app:onNavigationItemSelected="@{(view, item) -> main.bottomNavTabEvent(item)}"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

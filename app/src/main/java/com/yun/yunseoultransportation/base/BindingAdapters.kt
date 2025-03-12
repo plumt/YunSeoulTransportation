@@ -20,7 +20,8 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter("replaceAll")
+    @BindingAdapter("app:replaceAll")
+    @JvmStatic
     fun RecyclerView.replace(list: List<Any>?) {
         list?.let {
             (adapter as? BaseRecyclerViewAdapter.Create<Any, *>)?.run {

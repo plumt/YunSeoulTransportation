@@ -21,6 +21,9 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val _isBottomNav = MutableLiveData<Boolean>(false)
     val isBottomNav: LiveData<Boolean> get() = _isBottomNav
 
+    private var currentTab: Int = R.id.homeFragment         // 현재 선택된 탭 저장
+    var onNavigate: ((Int) -> Unit)? = null
+
 
     /**
      * 로딩 프로그레스바 노출/숨김
@@ -29,31 +32,19 @@ class MainViewModel @Inject constructor() : ViewModel() {
         _isLoading.postValue(isLoading)
     }
 
-    fun bottomNavTabEvent(item: Any): Boolean {
-        val menuItem = item as? MenuItem ?: return false
-
-        val destinationId = when (menuItem.title) {
-            "home" -> '1'
-            "map" -> '2'
-            "departure" -> '3'
-            "favorite" -> '4'
-            "setting" -> '5'
-            else -> return false
-        }
-
-        Log.d("yslee","destinationId : $destinationId")
-
-
-//        val destinationId = when (index) {
-//            "MAP" -> NavigationConstants.MainScreen.MAP
-//            "DIARY" -> NavigationConstants.MainScreen.DIARY
-//            "COMMUNITY" -> NavigationConstants.MainScreen.COMMUNITY
-//            "SETTING" -> NavigationConstants.MainScreen.SETTING
-//            "HOME" -> NavigationConstants.MainScreen.HOME
+//    fun bottomNavTabEvent(item: Any): Boolean {
+//        val menuItem = item as? MenuItem ?: return false
+//        val destinationId = when (menuItem.title) {
+//            "home" -> R.id.homeFragment
+//            "map" -> R.id.mapFragment
+////            "departure" -> '3'
+////            "favorite" -> '4'
+////            "setting" -> '5'
 //            else -> return false
 //        }
-//        if(destinationId == moveScreen.value || (moveScreen.value == null && destinationId == NavigationConstants.MainScreen.HOME)) bottomNavDoubleTabEvent(true)
-//        else moveScreens(destinationId)
-        return true
-    }
+//        if (currentTab == destinationId) return false
+//        currentTab = destinationId
+//        onNavigate?.invoke(destinationId)
+//        return true
+//    }
 }
