@@ -4,6 +4,7 @@ import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtid
 import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdResponse
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
 import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathResponse
+import com.yun.yunseoultransportation.domain.model.bus.staionByRoute.StaionByRouteResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -44,4 +45,11 @@ interface BusApiService {
         @Query("serviceKey") serviceKey: String,
         @Query("resultType") resultType: String
     ): RoutePathResponse
+
+    @GET("busRouteInfo/getStaionByRoute")
+    suspend fun getStaionByRoute(
+        @Query("busRouteId") busRouteId: String,
+        @Query("serviceKey") serviceKey: String,
+        @Query("resultType") resultType: String
+    ): StaionByRouteResponse
 }

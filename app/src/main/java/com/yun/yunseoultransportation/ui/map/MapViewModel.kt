@@ -30,10 +30,15 @@ class MapViewModel @Inject constructor(
     private val _busPathData = MutableLiveData<List<BusDataModel>>()
     val busPathData: LiveData<List<BusDataModel>> get() = _busPathData
 
+    // 버스 정류장 목록
+    private val _busStationList = MutableLiveData<List<BusDataModel>>()
+    val busStationList: LiveData<List<BusDataModel>> get() = _busStationList
+
     private val _selectedBusRouteId = MutableLiveData<String>()
     val selectedBusRouteId: LiveData<String> get() = _selectedBusRouteId
 
     // 노선번호에 해당하는 노선 목록 조회
+    // ex) 146 검색 > 146 번호가 들어가는 버스 목록 조회
     fun getBusRouteList(strSrch: String) {
         viewModelScope.launch {
             busUseCase.getBusRouteList(strSrch).onSuccess {
@@ -45,6 +50,7 @@ class MapViewModel @Inject constructor(
     }
 
     // 노선 경로 조회
+    // 버스 고유 id를 입력해 해당 버스의 전체 경로 조회
     fun getRoutePath(busRouteId: String) {
         viewModelScope.launch {
             busUseCase.getRoutePath(busRouteId).onSuccess { it ->
@@ -64,6 +70,7 @@ class MapViewModel @Inject constructor(
     }
 
     // 노선ID로 차량들의 위치정보를 조회한다
+    // 실시간 위치, 캐싱 1초
     fun getBusPosByRtid(busRouteId: String) {
         viewModelScope.launch {
             _selectedBusRouteId.value = busRouteId
@@ -78,6 +85,25 @@ class MapViewModel @Inject constructor(
                 }
                 _busData.value = tempBusData
                 Log.d("yslee", "getBusPosByRtid : $it")
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
+
+    fun getStaionByRoute(busRouteId: String) {
+        viewModelScope.launch {
+            busUseCase.getStaionByRoute(busRouteId).onSuccess {
+                val tempBusData = it.msgBody.itemList.map {
+                    BusDataModel(
+                        latitude = it.gpsY,
+                        longitude = it.gpsX,
+                        title = it.stationNm,
+                        id = it.station
+                    )
+                }
+                _busStationList.value = tempBusData
+                Log.d("yslee","busUseCase > $it")
             }.onFailure {
                 it.printStackTrace()
             }

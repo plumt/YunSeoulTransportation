@@ -54,7 +54,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
         viewModel.busData.observe(viewLifecycleOwner) { busData ->
             Log.d("yslee", "viewModel.busData.observe > $busData")
             if (busData.isNotEmpty() && this::naverMapManager.isInitialized) {
-                naverMapManager.addMarkers(busData)
+                naverMapManager.addMarkers(busData, "bus")
             }
         }
 

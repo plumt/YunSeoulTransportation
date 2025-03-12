@@ -20,13 +20,14 @@ class NaverMapManager(private val naverMap: NaverMap) {
 
     fun addMarkers(
         data: List<BusDataModel>,
+        tag: String,
         isClear: Boolean = true,
         isBounds: Boolean = true,
         overlayImage: OverlayImage? = null,
         resources: Resources? = null,
         size: Int? = null
     ) {
-        if (isClear) clearMarkers()
+        if (isClear) clearMarkers(tag)
         data.map { Pair(LatLng(it.latitude.toDouble(), it.longitude.toDouble()), it.title) }.map {
             markers.add(Marker().apply {
                 position = it.first
@@ -38,14 +39,15 @@ class NaverMapManager(private val naverMap: NaverMap) {
                 captionText = it.second
                 map = naverMap
                 zIndex = 3
+                this.tag = tag
             })
         }
 
         if (isBounds) mapBounds(data)
     }
 
-    fun clearMarkers() {
-        markers.map { it.map = null }
+    fun clearMarkers(clearFilter: String) {
+        markers.filter { it.tag == clearFilter }.map { it.map = null }
     }
 
     fun mapBounds(data: List<BusDataModel>) {

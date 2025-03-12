@@ -9,12 +9,29 @@ import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteList
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
 import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathRequest
 import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathResponse
+import com.yun.yunseoultransportation.domain.model.bus.staionByRoute.StaionByRouteRequest
+import com.yun.yunseoultransportation.domain.model.bus.staionByRoute.StaionByRouteResponse
 import com.yun.yunseoultransportation.domain.repository.BusRepository
 import javax.inject.Inject
 
 class BusRepositoryImpl @Inject constructor(
     private val busDataSource: BusDataSource
 ) : BusRepository {
+
+    override suspend fun getStaionByRoute(busRouteId: String): Result<StaionByRouteResponse> {
+        return try {
+            val response = busDataSource.getStaionByRoute(
+                StaionByRouteRequest(
+                    busRouteId = busRouteId,
+                    serviceKey = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
+                    resultType = "json"
+                )
+            )
+            Result.success(response)
+        } catch (e: Exception){
+            Result.failure(e)
+        }
+    }
 
     override suspend fun getRoutePath(busRouteId: String): Result<RoutePathResponse> {
         return try {

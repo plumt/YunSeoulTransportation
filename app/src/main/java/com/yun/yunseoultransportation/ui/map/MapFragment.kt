@@ -67,9 +67,15 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
             }
         }
 
+        viewModel.busStationList.observe(viewLifecycleOwner) { busStationData ->
+            if(busStationData.isNotEmpty() && this::naverMapManager.isInitialized){
+                naverMapManager.addMarkers(busStationData, "station", isBounds = false, isClear = false)
+            }
+        }
+
         viewModel.busData.observe(viewLifecycleOwner) { busData ->
             if (busData.isNotEmpty() && this::naverMapManager.isInitialized) {
-                naverMapManager.addMarkers(busData, resources = resources, size = 40, isBounds = false,
+                naverMapManager.addMarkers(busData, "bus", resources = resources, size = 40, isBounds = false,
                     overlayImage = OverlayImage.fromResource(R.drawable.outline_directions_bus_24))
                 countDownManager.startCountDown()
             }
@@ -107,6 +113,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
         Log.d("yslee","onSelectedItem > $item")
         viewModel.getRoutePath(item.busRouteId)
         viewModel.getBusPosByRtid(item.busRouteId)
+        viewModel.getStaionByRoute(item.busRouteId)
         routeSearchDialog.dismiss()
         countDownManager.stopCountDown()
     }
