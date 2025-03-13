@@ -1,7 +1,6 @@
 package com.yun.yunseoultransportation.ui.map
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -21,6 +20,7 @@ import com.yun.yunseoultransportation.databinding.FragmentMapBinding
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.ItemList
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchDialog
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchInterface
+import com.yun.yunseoultransportation.util.Util.observeWithLifecycle
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,20 +58,31 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
         binding.icInputBtn.layoutContainer.setOnSingleClickListener(listener = onSingleClickListener)
         binding.cvCountDown.setOnSingleClickListener(listener = onSingleClickListener)
 
-        viewModel.busRouteInfoList.observe(viewLifecycleOwner) { busRouteInfoList ->
-            routeSearchDialog.routeSearchDataUpdate(busRouteInfoList)
-        }
 
-        viewModel.busPathData.observe(viewLifecycleOwner) { busPathData ->
-            if (busPathData.isNotEmpty() && this::naverMapManager.isInitialized) {
-                naverMapManager.addPolyline(busPathData)
+//        lifecycleScope.launch {
+//            repeatOnLifecycle(Lifecycle.State.RESUMED){
+//                viewModel.busRouteInfoList.collect {
+//
+//                }
+//            }
+//        }
+
+        viewModel.busRouteInfoList.observeWithLifecycle(viewLifecycleOwner) {
+            viewModel.busRouteInfoList.collect {
+                routeSearchDialog.routeSearchDataUpdate(it)
             }
         }
 
-        viewModel.busStationList.observe(viewLifecycleOwner) { busStationData ->
-            if (busStationData.isNotEmpty() && this::naverMapManager.isInitialized) {
+        viewModel.busPathData.observeWithLifecycle(viewLifecycleOwner) {
+            if (it.isNotEmpty() && this@MapFragment::naverMapManager.isInitialized) {
+                naverMapManager.addPolyline(it)
+            }
+        }
+
+        viewModel.busStationList.observeWithLifecycle(viewLifecycleOwner) {
+            if (it.isNotEmpty() && this@MapFragment::naverMapManager.isInitialized) {
                 naverMapManager.addMarkers(
-                    busStationData,
+                    it,
                     "station",
                     isBounds = false,
                     isClear = false,
@@ -79,10 +90,15 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
             }
         }
 
-        viewModel.busData.observe(viewLifecycleOwner) { busData ->
-            if (busData.isNotEmpty() && this::naverMapManager.isInitialized) {
+        viewModel.busData.observeWithLifecycle(viewLifecycleOwner) {
+            if (it.isNotEmpty() && this@MapFragment::naverMapManager.isInitialized) {
                 naverMapManager.addMarkers(
-                    busData, "bus", resources = resources, size = 40, isBounds = false, zIndex = 4,
+                    it,
+                    "bus",
+                    resources = resources,
+                    size = 40,
+                    isBounds = false,
+                    zIndex = 4,
                     overlayImage = OverlayImage.fromResource(R.drawable.outline_directions_bus_24)
                 )
                 countDownManager.startCountDown()
@@ -103,8 +119,8 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
     override fun onTick(seconds: Long) {
         Log.d("yslee", "onTick : $seconds")
         binding.setVariable(BR.count_down, seconds.toString())
-        if (seconds == 0L && viewModel.selectedBusRouteId.value != null) {
-            viewModel.getBusPosByRtid(viewModel.selectedBusRouteId.value!!)
+        if (seconds == 0L && viewModel.selectedBusRouteId.value.isNotEmpty()) {
+            viewModel.getBusPosByRtid(viewModel.selectedBusRouteId.value)
         }
     }
 

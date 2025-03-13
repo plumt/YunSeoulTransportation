@@ -38,7 +38,7 @@
             android:layout_height="50dp"
             android:layout_margin="20dp"
             android:backgroundTint="@color/white"
-            android:visibility="@{map.busData != null ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{map.isBusDataVisible ? View.VISIBLE : View.INVISIBLE}"
             app:cardCornerRadius="50dp"
             android:id="@+id/cv_count_down"
             app:layout_constraintBottom_toBottomOf="parent"

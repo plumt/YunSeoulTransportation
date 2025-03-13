@@ -1,17 +1,20 @@
 package com.yun.yunseoultransportation.ui.map
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yun.yunseoultransportation.common.model.BusDataModel
 import com.yun.yunseoultransportation.common.model.toBusDataModel
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.ItemList
-import com.yun.yunseoultransportation.domain.model.bus.staionByRoute.StaionByRouteResponse
 import com.yun.yunseoultransportation.domain.usecase.BusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,23 +24,25 @@ class MapViewModel @Inject constructor(
 ) : ViewModel() {
 
     // 번호로 검색된 버스 목록
-    private val _busRouteInfoList = MutableLiveData<List<ItemList>>()
-    val busRouteInfoList: LiveData<List<ItemList>> get() = _busRouteInfoList
+    private val _busRouteInfoList = MutableStateFlow<List<ItemList>>(arrayListOf())
+    val busRouteInfoList = _busRouteInfoList.asStateFlow()
 
     // 실시간 버스 목록
-    private val _busData = MutableLiveData<List<BusDataModel>>()
-    val busData: LiveData<List<BusDataModel>> get() = _busData
+    private val _busData = MutableStateFlow<List<BusDataModel>>(arrayListOf())
+    val busData = _busData.asStateFlow()
+    val isBusDataVisible =
+        busData.map { it.isNotEmpty() }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     // 버스 경로
-    private val _busPathData = MutableLiveData<List<BusDataModel>>()
-    val busPathData: LiveData<List<BusDataModel>> get() = _busPathData
+    private val _busPathData = MutableStateFlow<List<BusDataModel>>(arrayListOf())
+    val busPathData = _busPathData.asStateFlow()
 
     // 버스 정류장 목록
-    private val _busStationList = MutableLiveData<List<BusDataModel>>()
-    val busStationList: LiveData<List<BusDataModel>> get() = _busStationList
+    private val _busStationList = MutableStateFlow<List<BusDataModel>>(arrayListOf())
+    val busStationList = _busStationList.asStateFlow()
 
-    private val _selectedBusRouteId = MutableLiveData<String>()
-    val selectedBusRouteId: LiveData<String> get() = _selectedBusRouteId
+    private val _selectedBusRouteId = MutableStateFlow<String>("")
+    val selectedBusRouteId = _selectedBusRouteId.asStateFlow()
 
     // 노선번호에 해당하는 노선 목록 조회
     // ex) 146 검색 > 146 번호가 들어가는 버스 목록 조회
@@ -81,7 +86,7 @@ class MapViewModel @Inject constructor(
         viewModelScope.launch {
             busUseCase.getStaionByRoute(busRouteId).onSuccess {
                 _busStationList.value = it.toBusDataModel()
-                Log.d("yslee","busUseCase > $it")
+                Log.d("yslee", "busUseCase > $it")
             }.onFailure {
                 it.printStackTrace()
             }
