@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yun.yunseoultransportation.common.model.BusDataModel
+import com.yun.yunseoultransportation.common.model.toBusDataModel
 import com.yun.yunseoultransportation.domain.model.bus.busRouteList.ItemList
+import com.yun.yunseoultransportation.domain.model.bus.staionByRoute.StaionByRouteResponse
 import com.yun.yunseoultransportation.domain.usecase.BusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -53,16 +55,8 @@ class MapViewModel @Inject constructor(
     // 버스 고유 id를 입력해 해당 버스의 전체 경로 조회
     fun getRoutePath(busRouteId: String) {
         viewModelScope.launch {
-            busUseCase.getRoutePath(busRouteId).onSuccess { it ->
-                val tempBusData = it.msgBody.itemList.map {
-                    BusDataModel(
-                        latitude = it.gpsY,
-                        longitude = it.gpsX,
-                        title = it.no,
-                        id = it.no
-                    )
-                }
-                _busPathData.value = tempBusData
+            busUseCase.getRoutePath(busRouteId).onSuccess {
+                _busPathData.value = it.toBusDataModel()
             }.onFailure {
                 it.printStackTrace()
             }
@@ -75,15 +69,7 @@ class MapViewModel @Inject constructor(
         viewModelScope.launch {
             _selectedBusRouteId.value = busRouteId
             busUseCase.getBusPosByRtid(busRouteId).onSuccess {
-                val tempBusData = it.msgBody.itemList.map {
-                    BusDataModel(
-                        latitude = it.gpsY,
-                        longitude = it.gpsX,
-                        title = it.plainNo,
-                        id = it.vehId
-                    )
-                }
-                _busData.value = tempBusData
+                _busData.value = it.toBusDataModel()
                 Log.d("yslee", "getBusPosByRtid : $it")
             }.onFailure {
                 it.printStackTrace()
@@ -94,15 +80,7 @@ class MapViewModel @Inject constructor(
     fun getStaionByRoute(busRouteId: String) {
         viewModelScope.launch {
             busUseCase.getStaionByRoute(busRouteId).onSuccess {
-                val tempBusData = it.msgBody.itemList.map {
-                    BusDataModel(
-                        latitude = it.gpsY,
-                        longitude = it.gpsX,
-                        title = it.stationNm,
-                        id = it.station
-                    )
-                }
-                _busStationList.value = tempBusData
+                _busStationList.value = it.toBusDataModel()
                 Log.d("yslee","busUseCase > $it")
             }.onFailure {
                 it.printStackTrace()

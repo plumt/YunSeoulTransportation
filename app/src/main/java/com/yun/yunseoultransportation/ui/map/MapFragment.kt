@@ -25,7 +25,8 @@ import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReadyCallback, RouteSearchInterface, CountDownInterface {
+class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReadyCallback,
+    RouteSearchInterface, CountDownInterface {
     override val viewModel: MapViewModel by viewModels()
     override fun getResourceId(): Int = R.layout.fragment_map
     override fun isLoading(): LiveData<Boolean>? = null
@@ -37,7 +38,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
     private lateinit var naverMapManager: NaverMapManager
     private lateinit var routeSearchDialog: RouteSearchDialog
 
-    private lateinit var countDownManager : CountDownManager
+    private lateinit var countDownManager: CountDownManager
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,33 +58,40 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
         binding.icInputBtn.layoutContainer.setOnSingleClickListener(listener = onSingleClickListener)
         binding.cvCountDown.setOnSingleClickListener(listener = onSingleClickListener)
 
-        viewModel.busRouteInfoList.observe(viewLifecycleOwner){ busRouteInfoList ->
+        viewModel.busRouteInfoList.observe(viewLifecycleOwner) { busRouteInfoList ->
             routeSearchDialog.routeSearchDataUpdate(busRouteInfoList)
         }
 
         viewModel.busPathData.observe(viewLifecycleOwner) { busPathData ->
-            if(busPathData.isNotEmpty() && this::naverMapManager.isInitialized){
+            if (busPathData.isNotEmpty() && this::naverMapManager.isInitialized) {
                 naverMapManager.addPolyline(busPathData)
             }
         }
 
         viewModel.busStationList.observe(viewLifecycleOwner) { busStationData ->
-            if(busStationData.isNotEmpty() && this::naverMapManager.isInitialized){
-                naverMapManager.addMarkers(busStationData, "station", isBounds = false, isClear = false)
+            if (busStationData.isNotEmpty() && this::naverMapManager.isInitialized) {
+                naverMapManager.addMarkers(
+                    busStationData,
+                    "station",
+                    isBounds = false,
+                    isClear = false,
+                )
             }
         }
 
         viewModel.busData.observe(viewLifecycleOwner) { busData ->
             if (busData.isNotEmpty() && this::naverMapManager.isInitialized) {
-                naverMapManager.addMarkers(busData, "bus", resources = resources, size = 40, isBounds = false,
-                    overlayImage = OverlayImage.fromResource(R.drawable.outline_directions_bus_24))
+                naverMapManager.addMarkers(
+                    busData, "bus", resources = resources, size = 40, isBounds = false, zIndex = 4,
+                    overlayImage = OverlayImage.fromResource(R.drawable.outline_directions_bus_24)
+                )
                 countDownManager.startCountDown()
             }
         }
     }
 
     private val onSingleClickListener: (View) -> Unit = {
-        when(it.id) {
+        when (it.id) {
             binding.icInputBtn.layoutContainer.id -> routeSearchDialog.show()
             binding.cvCountDown.id -> {
                 countDownManager.resetCountDown()
@@ -93,9 +101,9 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 
     // 카운트 다운
     override fun onTick(seconds: Long) {
-        Log.d("yslee","onTick : $seconds")
+        Log.d("yslee", "onTick : $seconds")
         binding.setVariable(BR.count_down, seconds.toString())
-        if(seconds == 0L && viewModel.selectedBusRouteId.value != null){
+        if (seconds == 0L && viewModel.selectedBusRouteId.value != null) {
             viewModel.getBusPosByRtid(viewModel.selectedBusRouteId.value!!)
         }
     }
@@ -110,7 +118,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
     }
 
     override fun onSelectedItem(item: ItemList) {
-        Log.d("yslee","onSelectedItem > $item")
+        Log.d("yslee", "onSelectedItem > $item")
         viewModel.getRoutePath(item.busRouteId)
         viewModel.getBusPosByRtid(item.busRouteId)
         viewModel.getStaionByRoute(item.busRouteId)
@@ -120,12 +128,12 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 
     override fun keywordResult(keyword: String) {
         viewModel.getBusRouteList(keyword)
-        Log.d("yslee","keywordResult > $keyword")
+        Log.d("yslee", "keywordResult > $keyword")
     }
 
 
     override fun onDestroyView() {
-        Log.d("yslee","onDestroy")
+        Log.d("yslee", "onDestroy")
         countDownManager.stopCountDown()
         super.onDestroyView()
     }

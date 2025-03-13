@@ -25,7 +25,8 @@ class NaverMapManager(private val naverMap: NaverMap) {
         isBounds: Boolean = true,
         overlayImage: OverlayImage? = null,
         resources: Resources? = null,
-        size: Int? = null
+        size: Int? = null,
+        zIndex: Int = 3
     ) {
         if (isClear) clearMarkers(tag)
         data.map { Pair(LatLng(it.latitude.toDouble(), it.longitude.toDouble()), it.title) }.map {
@@ -38,7 +39,7 @@ class NaverMapManager(private val naverMap: NaverMap) {
                 }
                 captionText = it.second
                 map = naverMap
-                zIndex = 3
+                this.zIndex = zIndex
                 this.tag = tag
             })
         }

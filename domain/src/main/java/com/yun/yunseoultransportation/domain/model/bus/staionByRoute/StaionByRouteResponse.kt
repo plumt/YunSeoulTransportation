@@ -31,7 +31,4 @@ data class ItemList(
     val sectSpd: String,            // 구간 속도
     val arsId: String,              // 정류소 고유번호
     val transYn: String             // 회차지 여부
-
-
-
 )
