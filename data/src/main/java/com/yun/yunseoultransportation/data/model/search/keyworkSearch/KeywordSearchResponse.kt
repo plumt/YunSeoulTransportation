@@ -1,12 +1,12 @@
-package com.yun.yunseoultransportation.domain.model.search.keyworkSearch
+package com.yun.yunseoultransportation.data.model.search.keyworkSearch
 
 data class KeywordSearchResponse(
-    val meta: Meta,                 // 응답 관련 정보
-    val documents: List<Documents>  // 응답 결과
+    val meta: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Meta,                 // 응답 관련 정보
+    val documents: List<com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents>  // 응답 결과
 )
 
 data class Meta(
-    val same_name: SameName,        // 질의어의 지역 및 키워드 분석 정보
+    val same_name: com.yun.yunseoultransportation.data.model.search.keyworkSearch.SameName,        // 질의어의 지역 및 키워드 분석 정보
     val pageable_count: Int,        // total_count 중 노출 가능 문서 수 (최대: 45)
     val total_count: Int,           // 검색어에 검색된 문서 수
     val is_end: Boolean             // 현재 페이지가 마지막 페이지인지 여부, 값이 false면 다음 요청 시 page 값을 증가시켜 다음 페이지 요청 가능

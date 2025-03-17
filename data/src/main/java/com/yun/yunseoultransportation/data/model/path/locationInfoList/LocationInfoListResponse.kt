@@ -1,12 +1,12 @@
-package com.yun.yunseoultransportation.domain.model.path.locationInfoList
+package com.yun.yunseoultransportation.data.model.path.locationInfoList
 
 data class LocationInfoListResponse(
     val itemCount: Int,         // 항목 개수
-    val msgBody: MsgBody        // 본문 내용
+    val msgBody: com.yun.yunseoultransportation.data.model.path.locationInfoList.MsgBody        // 본문 내용
 )
 
 data class MsgBody(
-    val itemList: List<ItemList>    // 각 항목 리스트
+    val itemList: List<com.yun.yunseoultransportation.data.model.path.locationInfoList.ItemList>    // 각 항목 리스트
 )
 
 data class ItemList(

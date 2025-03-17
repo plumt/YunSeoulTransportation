@@ -13,14 +13,13 @@ import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseRecyclerViewAdapter
 import com.yun.yunseoultransportation.databinding.DialogRouteSearchBinding
 import com.yun.yunseoultransportation.databinding.ItemRouteSearchBusInfoListBinding
-import com.yun.yunseoultransportation.domain.model.bus.busRouteList.ItemList
-import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents
+import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
 import com.yun.yunseoultransportation.util.extensions.dialogResize
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 
 interface RouteSearchInterface {
     fun keywordResult(keyword: String)
-    fun onSelectedItem(item: ItemList)
+    fun onSelectedItem(item: BusStationInfo)
 }
 
 class RouteSearchDialog(
@@ -31,7 +30,7 @@ class RouteSearchDialog(
     private lateinit var binding: DialogRouteSearchBinding
     private var keyword: String = ""
 
-    fun routeSearchDataUpdate(searchInfoList: List<ItemList>) {
+    fun routeSearchDataUpdate(searchInfoList: List<BusStationInfo>) {
         if (this::binding.isInitialized) {
             binding.setVariable(BR.searchData, searchInfoList)
         }
@@ -64,13 +63,13 @@ class RouteSearchDialog(
         }
 
         binding.rvBusRouteSearch.run {
-            adapter = object : BaseRecyclerViewAdapter.Create<ItemList, ItemRouteSearchBusInfoListBinding>(
+            adapter = object : BaseRecyclerViewAdapter.Create<BusStationInfo, ItemRouteSearchBusInfoListBinding>(
                 layoutResId = R.layout.item_route_search_bus_info_list,
                 bindingVariableId = BR.itemRouteSearchBusInfo,
                 bindingListener = BR.routeSearchBusInfoListener
             ) {
-                override fun onItemLongClick(item: ItemList, view: View): Boolean = true
-                override fun onItemClick(item: ItemList, view: View) {
+                override fun onItemLongClick(item: BusStationInfo, view: View): Boolean = true
+                override fun onItemClick(item: BusStationInfo, view: View) {
                     routeSearchInterface.onSelectedItem(item)
                 }
             }

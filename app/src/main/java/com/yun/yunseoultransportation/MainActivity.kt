@@ -8,10 +8,12 @@ import com.yun.yunseoultransportation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.kakao.vectormap.KakaoMapSdk
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
-
     }
 }
 

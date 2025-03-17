@@ -1,10 +1,12 @@
 package com.yun.yunseoultransportation.ui.map
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMap.LAYER_GROUP_TRAFFIC
@@ -16,13 +18,18 @@ import com.yun.yunseoultransportation.base.BaseFragment
 import com.yun.yunseoultransportation.common.manager.CountDownInterface
 import com.yun.yunseoultransportation.common.manager.CountDownManager
 import com.yun.yunseoultransportation.common.manager.map.NaverMapManager
+import com.yun.yunseoultransportation.common.model.toBusMarker
+import com.yun.yunseoultransportation.common.model.toBusStationMarker
+import com.yun.yunseoultransportation.common.model.toNaverPolyline
 import com.yun.yunseoultransportation.databinding.FragmentMapBinding
-import com.yun.yunseoultransportation.domain.model.bus.busRouteList.ItemList
+import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchDialog
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchInterface
+import com.yun.yunseoultransportation.util.Util.dpToPx
 import com.yun.yunseoultransportation.util.Util.observeWithLifecycle
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReadyCallback,
@@ -67,25 +74,32 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 //            }
 //        }
 
-        viewModel.busRouteInfoList.observeWithLifecycle(viewLifecycleOwner) {
+        lifecycleScope.launch {
             viewModel.busRouteInfoList.collect {
                 routeSearchDialog.routeSearchDataUpdate(it)
             }
         }
 
+//        viewModel.busRouteInfoList.observeWithLifecycle(viewLifecycleOwner) {
+//            viewModel.busRouteInfoList.collect {
+//                routeSearchDialog.routeSearchDataUpdate(it)
+//            }
+//        }
+
         viewModel.busPathData.observeWithLifecycle(viewLifecycleOwner) {
             if (it.isNotEmpty() && this@MapFragment::naverMapManager.isInitialized) {
-                naverMapManager.addPolyline(it)
+                naverMapManager.addPolyline(
+                    it.toNaverPolyline(Color.BLUE, dpToPx(resources, 5).toInt())
+                )
             }
         }
 
         viewModel.busStationList.observeWithLifecycle(viewLifecycleOwner) {
             if (it.isNotEmpty() && this@MapFragment::naverMapManager.isInitialized) {
                 naverMapManager.addMarkers(
-                    it,
+                    it.toBusStationMarker(),
                     "station",
                     isBounds = false,
-                    isClear = false,
                 )
             }
         }
@@ -93,13 +107,17 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
         viewModel.busData.observeWithLifecycle(viewLifecycleOwner) {
             if (it.isNotEmpty() && this@MapFragment::naverMapManager.isInitialized) {
                 naverMapManager.addMarkers(
-                    it,
+                    it.toBusMarker().map { item ->
+                        item.apply {
+                            overlayImage =
+                                OverlayImage.fromResource(R.drawable.outline_directions_bus_24)
+                            setScaleSize(resources, 40, 40)
+                            tag = "bus"
+                        }
+                    },
                     "bus",
-                    resources = resources,
-                    size = 40,
                     isBounds = false,
                     zIndex = 4,
-                    overlayImage = OverlayImage.fromResource(R.drawable.outline_directions_bus_24)
                 )
                 countDownManager.startCountDown()
             }
@@ -133,7 +151,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
         naverMapManager = NaverMapManager(naverMap)
     }
 
-    override fun onSelectedItem(item: ItemList) {
+    override fun onSelectedItem(item: BusStationInfo) {
         Log.d("yslee", "onSelectedItem > $item")
         viewModel.getRoutePath(item.busRouteId)
         viewModel.getBusPosByRtid(item.busRouteId)

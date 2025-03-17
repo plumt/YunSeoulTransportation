@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.bus.routePath
+package com.yun.yunseoultransportation.data.model.bus.routePath
 
 data class RoutePathResponse(
     val itemCount: Int,         // 항목 개수

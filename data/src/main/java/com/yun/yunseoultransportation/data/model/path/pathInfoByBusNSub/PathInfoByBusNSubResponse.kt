@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.path.pathInfoByBusNSub
+package com.yun.yunseoultransportation.data.model.path.pathInfoByBusNSub
 
 
 data class PathInfoByBusNSubResponse(

@@ -8,7 +8,7 @@
 
         <variable
             name="searchData"
-            type="com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents" />
+            type="com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents" />
     </data>
 
 

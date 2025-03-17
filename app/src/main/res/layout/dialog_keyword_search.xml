@@ -6,7 +6,7 @@
 
         <variable
             name="searchData"
-            type="java.util.ArrayList&lt;com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents>" />
+            type="java.util.ArrayList&lt;com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

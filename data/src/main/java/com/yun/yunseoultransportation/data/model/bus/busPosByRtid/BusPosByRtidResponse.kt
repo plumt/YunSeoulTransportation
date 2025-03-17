@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.bus.busPosByRtid
+package com.yun.yunseoultransportation.data.model.bus.busPosByRtid
 
 data class BusPosByRtidResponse(
     val itemCount: Int,         // 항목 개수

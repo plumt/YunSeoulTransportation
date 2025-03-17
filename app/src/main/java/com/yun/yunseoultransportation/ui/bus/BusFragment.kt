@@ -45,18 +45,18 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
 
         naverMapView.getMapAsync(this)
 
-        viewModel.busPathData.observe(viewLifecycleOwner) { busPathData ->
-            if(busPathData.isNotEmpty() && this::naverMapManager.isInitialized){
-                naverMapManager.addPolyline(busPathData)
-            }
-        }
-
-        viewModel.busData.observe(viewLifecycleOwner) { busData ->
-            Log.d("yslee", "viewModel.busData.observe > $busData")
-            if (busData.isNotEmpty() && this::naverMapManager.isInitialized) {
-                naverMapManager.addMarkers(busData, "bus")
-            }
-        }
+//        viewModel.busPathData.observe(viewLifecycleOwner) { busPathData ->
+//            if(busPathData.isNotEmpty() && this::naverMapManager.isInitialized){
+//                naverMapManager.addPolyline(busPathData)
+//            }
+//        }
+//
+//        viewModel.busData.observe(viewLifecycleOwner) { busData ->
+//            Log.d("yslee", "viewModel.busData.observe > $busData")
+//            if (busData.isNotEmpty() && this::naverMapManager.isInitialized) {
+//                naverMapManager.addMarkers(busData, "bus")
+//            }
+//        }
 
 
     }

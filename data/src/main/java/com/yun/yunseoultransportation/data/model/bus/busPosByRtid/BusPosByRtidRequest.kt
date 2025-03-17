@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.bus.busPosByRtid
+package com.yun.yunseoultransportation.data.model.bus.busPosByRtid
 
 data class BusPosByRtidRequest(
     val busRouteId: String,         // 노선ID

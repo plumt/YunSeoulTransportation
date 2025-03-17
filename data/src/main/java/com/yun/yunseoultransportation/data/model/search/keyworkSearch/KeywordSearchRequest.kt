@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.search.keyworkSearch
+package com.yun.yunseoultransportation.data.model.search.keyworkSearch
 
 data class KeywordSearchRequest(
     val query: String,          // 검색을 원하는 질의어

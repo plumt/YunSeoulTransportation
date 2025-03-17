@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.bus.routePath
+package com.yun.yunseoultransportation.data.model.bus.routePath
 
 data class RoutePathRequest(
     val busRouteId: String,         // 노선 시스템 ID

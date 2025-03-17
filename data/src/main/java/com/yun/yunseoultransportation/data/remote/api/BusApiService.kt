@@ -1,10 +1,11 @@
 package com.yun.yunseoultransportation.data.remote.api
 
-import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtidResponse
-import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdResponse
-import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
-import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathResponse
-import com.yun.yunseoultransportation.domain.model.bus.staionByRoute.StaionByRouteResponse
+import com.yun.yunseoultransportation.data.model.bus.busPosByRtid.BusPosByRtidResponse
+import com.yun.yunseoultransportation.data.model.bus.busPosByVehId.BusPosByVehIdResponse
+import com.yun.yunseoultransportation.data.model.bus.busRouteList.BusRouteListResponse
+import com.yun.yunseoultransportation.data.model.bus.routePath.RoutePathResponse
+import com.yun.yunseoultransportation.data.model.bus.staionByRoute.StaionByRouteResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -15,9 +16,9 @@ interface BusApiService {
     @GET("buspos/getBusPosByVehId")
     suspend fun getBusPosByVehId(
         @Query("vehId") vehId: String,
-        @Query("serviceKey") serviceKey: String,
-        @Query("resultType") resultType: String
-    ): BusPosByVehIdResponse
+        @Query("serviceKey") serviceKey: String = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
+        @Query("resultType") resultType: String = "json"
+    ): Response<BusPosByVehIdResponse>
 
     // 노선ID로 차량들의 위치정보를 조회한다
     @GET("buspos/getBusPosByRtid")
@@ -26,30 +27,30 @@ interface BusApiService {
         @Query("busRouteId") busRouteId: String,
         @Query("startOrd") startOrd: String,
         @Query("endOrd") endOrd: String,
-        @Query("serviceKey") serviceKey: String,
-        @Query("resultType") resultType: String
-    ): BusPosByRtidResponse
+        @Query("serviceKey") serviceKey: String = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
+        @Query("resultType") resultType: String = "json"
+    ): Response<BusPosByRtidResponse>
 
     // 노선번호에 해당하는 노선 목록 조회
     @GET("busRouteInfo/getBusRouteList")
     suspend fun getBusRouteList(
         @Query("strSrch") strSrch: String,
-        @Query("serviceKey") serviceKey: String,
-        @Query("resultType") resultType: String
-    ): BusRouteListResponse
+        @Query("serviceKey") serviceKey: String = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
+        @Query("resultType") resultType: String = "json"
+    ): Response<BusRouteListResponse>
 
     // 노선번호에 해당하는 지도상 경로 목록을 조회
     @GET("busRouteInfo/getRoutePath")
     suspend fun getRoutePath(
         @Query("busRouteId") busRouteId: String,
-        @Query("serviceKey") serviceKey: String,
-        @Query("resultType") resultType: String
-    ): RoutePathResponse
+        @Query("serviceKey") serviceKey: String = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
+        @Query("resultType") resultType: String = "json"
+    ): Response<RoutePathResponse>
 
     @GET("busRouteInfo/getStaionByRoute")
     suspend fun getStaionByRoute(
         @Query("busRouteId") busRouteId: String,
-        @Query("serviceKey") serviceKey: String,
-        @Query("resultType") resultType: String
-    ): StaionByRouteResponse
+        @Query("serviceKey") serviceKey: String = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
+        @Query("resultType") resultType: String = "json"
+    ): Response<StaionByRouteResponse>
 }

@@ -6,7 +6,7 @@
 
         <variable
             name="itemRouteSearchBusInfo"
-            type="com.yun.yunseoultransportation.domain.model.bus.busRouteList.ItemList" />
+            type="com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo" />
 
         <variable
             name="routeSearchBusInfoListener"
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@{itemRouteSearchBusInfo.busRouteAbrv}"
+            android:text="@{itemRouteSearchBusInfo.busRouteNm}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@{itemRouteSearchBusInfo.stStationNm}"
+            android:text="@{itemRouteSearchBusInfo.stationNm}"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_bus_route_name" />
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@{itemRouteSearchBusInfo.edStationNm}"
+            android:text="@{itemRouteSearchBusInfo.edationNm}"
             app:layout_constraintBottom_toBottomOf="@id/tv_stStationNm"
             app:layout_constraintStart_toEndOf="@id/iv_arrow"
             app:layout_constraintTop_toTopOf="@id/tv_stStationNm" />

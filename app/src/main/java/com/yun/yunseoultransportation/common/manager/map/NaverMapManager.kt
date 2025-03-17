@@ -1,17 +1,13 @@
 package com.yun.yunseoultransportation.common.manager.map
 
-import android.content.res.Resources
-import android.graphics.Color
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.LatLngBounds
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
-import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PolylineOverlay
-import com.yun.yunseoultransportation.R
-import com.yun.yunseoultransportation.common.model.BusDataModel
-import com.yun.yunseoultransportation.util.Util.dpToPx
+import com.yun.yunseoultransportation.common.model.NaverMarker
+import com.yun.yunseoultransportation.common.model.NaverPolyline
 
 class NaverMapManager(private val naverMap: NaverMap) {
 
@@ -19,61 +15,59 @@ class NaverMapManager(private val naverMap: NaverMap) {
     private val polyline = PolylineOverlay()
 
     fun addMarkers(
-        data: List<BusDataModel>,
-        tag: String,
-        isClear: Boolean = true,
+        data: List<NaverMarker>,
+        clearMarker: String? = null,
         isBounds: Boolean = true,
-        overlayImage: OverlayImage? = null,
-        resources: Resources? = null,
-        size: Int? = null,
         zIndex: Int = 3
     ) {
-        if (isClear) clearMarkers(tag)
-        data.map { Pair(LatLng(it.latitude.toDouble(), it.longitude.toDouble()), it.title) }.map {
+        if (clearMarker != null) clearMarkers(clearMarker)
+        data.map { item ->
             markers.add(Marker().apply {
-                position = it.first
-                if (overlayImage != null) icon = overlayImage
-                if(resources != null && size != null){
-                    width = dpToPx(resources, size).toInt()
-                    height = dpToPx(resources, size).toInt()
+                position = item.latLng()
+                if (item.isEnterImage()) icon = item.overlayImage!!
+                if (item.isEnterSize()) {
+                    width = item.width!!
+                    height = item.height!!
                 }
-                captionText = it.second
+                captionText = item.title
                 map = naverMap
                 this.zIndex = zIndex
-                this.tag = tag
+                this.tag = item.tag
             })
         }
 
-        if (isBounds) mapBounds(data)
+        if (isBounds) mapBounds(data.map { item ->
+            LatLng(
+                item.latitude.toDouble(),
+                item.longitude.toDouble()
+            )
+        })
     }
 
     fun clearMarkers(clearFilter: String) {
         markers.filter { it.tag == clearFilter }.map { it.map = null }
     }
 
-    fun mapBounds(data: List<BusDataModel>) {
+    private fun mapBounds(latLngList: List<LatLng>) {
         val bounds = LatLngBounds.Builder()
         val latLngBounds =
-            bounds.include(data.map { LatLng(it.latitude.toDouble(), it.longitude.toDouble()) })
-                .build()
+            bounds.include(latLngList).build()
         val cameraUpdate = CameraUpdate.fitBounds(latLngBounds)
         naverMap.moveCamera(cameraUpdate)
     }
 
-    fun addPolyline(data: List<BusDataModel>, isClear: Boolean = true, isBounds: Boolean = true) {
+    fun addPolyline(data: NaverPolyline, isClear: Boolean = true, isBounds: Boolean = true) {
         if (isClear) clearPolyline()
-        data.map { LatLng(it.latitude.toDouble(), it.longitude.toDouble()) }.run {
-            polyline.coords = this
-        }
+        polyline.coords = data.latLng
         polyline.apply {
-            width = 10
-            color = Color.BLUE
+            width = data.width
+            color = data.color
             capType = PolylineOverlay.LineCap.Round
             joinType = PolylineOverlay.LineJoin.Round
             zIndex = 2
             map = naverMap
         }
-        if (isBounds) mapBounds(data)
+        if (isBounds) mapBounds(data.latLng)
     }
 
     fun clearPolyline() {

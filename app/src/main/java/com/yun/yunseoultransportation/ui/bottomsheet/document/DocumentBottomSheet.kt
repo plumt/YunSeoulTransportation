@@ -16,11 +16,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.databinding.DialogDocumentBottomSheetBinding
-import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents
+import com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 
 interface DocumentBottomSheetInterface {
-    fun onRoute(documents: Documents)
+    fun onRoute(documents: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents)
 }
 
 class DocumentBottomSheet(
@@ -28,7 +28,7 @@ class DocumentBottomSheet(
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogDocumentBottomSheetBinding
-    private lateinit var documents: Documents
+    private lateinit var documents: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -86,7 +86,7 @@ class DocumentBottomSheet(
         return binding.root
     }
 
-    fun onSelectedItem(documents: Documents){
+    fun onSelectedItem(documents: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents){
         this.documents = documents
         if(this::binding.isInitialized){
             binding.setVariable(BR.searchData, documents)

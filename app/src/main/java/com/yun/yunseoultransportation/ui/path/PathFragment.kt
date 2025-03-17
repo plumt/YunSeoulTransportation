@@ -17,7 +17,6 @@ import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFragment
 import com.yun.yunseoultransportation.databinding.FragmentPathBinding
-import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents
 import com.yun.yunseoultransportation.ui.dialog.KeywordSearchDialog
 import com.yun.yunseoultransportation.ui.dialog.KeywordSearchInterface
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
@@ -61,7 +60,7 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
                 val x = viewModel.selectedDocument.value?.x
                 val y = viewModel.selectedDocument.value?.y
                 if (x != null && y != null) {
-                    viewModel.getPathInfoByBusNSub(x, y)
+//                    viewModel.getPathInfoByBusNSub(x, y)
                 }
             }
 
@@ -99,14 +98,14 @@ class PathFragment : BaseFragment<FragmentPathBinding, PathViewModel>(), Keyword
 
     // 키워드 검샥
     override fun keywordResult(keyword: String) {
-        viewModel.keywordSearch(keyword)
+//        viewModel.keywordSearch(keyword)
     }
 
     // 리스트 아이템 선택
-    override fun onSelectedItem(item: Documents) {
+    override fun onSelectedItem(item: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents) {
         Log.d("yslee", "$${item}")
         keywordSearchDialog.dismiss()
-        viewModel.selectDocument(item)
+//        viewModel.selectDocument(item)
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }

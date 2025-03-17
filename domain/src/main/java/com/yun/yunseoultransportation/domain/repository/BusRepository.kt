@@ -1,15 +1,13 @@
 package com.yun.yunseoultransportation.domain.repository
 
-import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtidResponse
-import com.yun.yunseoultransportation.domain.model.bus.busPosByVehId.BusPosByVehIdResponse
-import com.yun.yunseoultransportation.domain.model.bus.busRouteList.BusRouteListResponse
-import com.yun.yunseoultransportation.domain.model.bus.routePath.RoutePathResponse
-import com.yun.yunseoultransportation.domain.model.bus.staionByRoute.StaionByRouteResponse
+import com.yun.yunseoultransportation.domain.model.bus.BusResult
+import com.yun.yunseoultransportation.domain.model.busStation.BusStationResult
+import com.yun.yunseoultransportation.domain.model.path.BusPathResult
 
 interface BusRepository {
-    suspend fun getStaionByRoute(busRouteId: String): Result<StaionByRouteResponse>
-    suspend fun getBusPosByVehId(vehId: String): Result<BusPosByVehIdResponse>
-    suspend fun getBusPosByRtid(busRouteId: String): Result<BusPosByRtidResponse>
-    suspend fun getBusRouteList(strSrch: String): Result<BusRouteListResponse>
-    suspend fun getRoutePath(busRouteId: String): Result<RoutePathResponse>
+    suspend fun getStaionByRoute(busRouteId: String): BusStationResult
+    suspend fun getBusPosByVehId(vehId: String): BusResult
+    suspend fun getBusPosByRtid(busRouteId: String): BusResult
+    suspend fun getBusRouteList(strSrch: String): BusStationResult
+    suspend fun getRoutePath(busRouteId: String): BusPathResult
 }

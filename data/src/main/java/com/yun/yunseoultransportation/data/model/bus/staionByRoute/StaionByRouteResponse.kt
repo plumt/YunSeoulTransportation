@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.bus.staionByRoute
+package com.yun.yunseoultransportation.data.model.bus.staionByRoute
 
 data class StaionByRouteResponse(
     val itemCount: Int,         // 항목 개수

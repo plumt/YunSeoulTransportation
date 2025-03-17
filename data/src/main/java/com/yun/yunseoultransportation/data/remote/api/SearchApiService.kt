@@ -1,6 +1,6 @@
 package com.yun.yunseoultransportation.data.remote.api
 
-import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.KeywordSearchResponse
+import com.yun.yunseoultransportation.data.model.search.keyworkSearch.KeywordSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

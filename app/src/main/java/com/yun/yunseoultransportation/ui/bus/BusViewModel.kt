@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yun.yunseoultransportation.common.model.BusDataModel
-import com.yun.yunseoultransportation.domain.model.bus.busPosByRtid.BusPosByRtidResponse
 import com.yun.yunseoultransportation.domain.usecase.BusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -30,62 +29,62 @@ class BusViewModel @Inject constructor(
 
     // 차량ID로 위치정보를 조회
     fun getBusPosByVehId() {
-        viewModelScope.launch {
-            busUseCase.getBusPosByVehId("100100216").onSuccess {
-                Log.d("yslee", "getBusPosByVehId : $it")
-            }.onFailure {
-                it.printStackTrace()
-            }
-        }
+//        viewModelScope.launch {
+//            busUseCase.getBusPosByVehId("100100216").onSuccess {
+//                Log.d("yslee", "getBusPosByVehId : $it")
+//            }.onFailure {
+//                it.printStackTrace()
+//            }
+//        }
     }
 
     // 노선ID로 차량들의 위치정보를 조회한다
     fun getBusPosByRtid() {
-        viewModelScope.launch {
-            busUseCase.getBusPosByRtid("100100025").onSuccess {
-                val tempBusData = it.msgBody.itemList.map {
-                    BusDataModel(
-                        latitude = it.gpsY,
-                        longitude = it.gpsX,
-                        title = it.plainNo,
-                        id = it.vehId
-                    )
-                }
-                _busData.value = tempBusData
-                Log.d("yslee", "getBusPosByRtid : $it")
-            }.onFailure {
-                it.printStackTrace()
-            }
-        }
+//        viewModelScope.launch {
+//            busUseCase.getBusPosByRtid("100100025").onSuccess {
+//                val tempBusData = it.msgBody.itemList.map {
+//                    BusDataModel(
+//                        latitude = it.gpsY,
+//                        longitude = it.gpsX,
+//                        title = it.plainNo,
+//                        id = it.vehId
+//                    )
+//                }
+//                _busData.value = tempBusData
+//                Log.d("yslee", "getBusPosByRtid : $it")
+//            }.onFailure {
+//                it.printStackTrace()
+//            }
+//        }
     }
 
     // 노선번호에 해당하는 노선 목록 조회
     fun getBusRouteList() {
-        viewModelScope.launch {
-            busUseCase.getBusRouteList("146").onSuccess {
-            }.onFailure {
-                it.printStackTrace()
-            }
-        }
+//        viewModelScope.launch {
+//            busUseCase.getBusRouteList("146").onSuccess {
+//            }.onFailure {
+//                it.printStackTrace()
+//            }
+//        }
     }
 
     fun getRoutePath() {
-        viewModelScope.launch {
-            busUseCase.getRoutePath("100100025").onSuccess {
-                Log.d("yslee","getRoutePath > ${it}")
-                val tempBusData = it.msgBody.itemList.map {
-                    BusDataModel(
-                        latitude = it.gpsY,
-                        longitude = it.gpsX,
-                        title = it.no,
-                        id = it.no
-                    )
-                }
-                _busPathData.value = tempBusData
-            }.onFailure {
-                it.printStackTrace()
-            }
-        }
+//        viewModelScope.launch {
+//            busUseCase.getRoutePath("100100025").onSuccess {
+//                Log.d("yslee","getRoutePath > ${it}")
+//                val tempBusData = it.msgBody.itemList.map {
+//                    BusDataModel(
+//                        latitude = it.gpsY,
+//                        longitude = it.gpsX,
+//                        title = it.no,
+//                        id = it.no
+//                    )
+//                }
+//                _busPathData.value = tempBusData
+//            }.onFailure {
+//                it.printStackTrace()
+//            }
+//        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.path.locationInfoList
+package com.yun.yunseoultransportation.data.model.path.locationInfoList
 
 data class LocationInfoListRequest(
     val stSrch: String,             // 검색어

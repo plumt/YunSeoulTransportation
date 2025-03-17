@@ -7,7 +7,7 @@
 
         <variable
             name="searchData"
-            type="java.util.ArrayList&lt;com.yun.yunseoultransportation.domain.model.bus.busRouteList.ItemList>" />
+            type="java.util.ArrayList&lt;com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo>" />
     </data>
 
 

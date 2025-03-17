@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.path.pathInfoByBusNSub
+package com.yun.yunseoultransportation.data.model.path.pathInfoByBusNSub
 
 data class PathInfoByBusNSubRequest(
     val startX: String,             // 시작점 X 좌표 (WGS84)

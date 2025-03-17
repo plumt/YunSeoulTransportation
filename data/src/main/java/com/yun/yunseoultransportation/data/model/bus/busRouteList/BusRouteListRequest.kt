@@ -1,4 +1,4 @@
-package com.yun.yunseoultransportation.domain.model.bus.busRouteList
+package com.yun.yunseoultransportation.data.model.bus.busRouteList
 
 data class BusRouteListRequest(
     val strSrch: String,            // 검색할 노선번호

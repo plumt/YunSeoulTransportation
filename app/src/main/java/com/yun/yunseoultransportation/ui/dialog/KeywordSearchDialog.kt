@@ -13,13 +13,13 @@ import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseRecyclerViewAdapter
 import com.yun.yunseoultransportation.databinding.DialogKeywordSearchBinding
 import com.yun.yunseoultransportation.databinding.ItemKeywordSearchInfoListBinding
-import com.yun.yunseoultransportation.domain.model.search.keyworkSearch.Documents
+import com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents
 import com.yun.yunseoultransportation.util.extensions.dialogResize
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 
 interface KeywordSearchInterface {
     fun keywordResult(keyword: String)
-    fun onSelectedItem(item: Documents)
+    fun onSelectedItem(item: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents)
     fun onDismiss()
 }
 
@@ -30,7 +30,7 @@ class KeywordSearchDialog(
     private lateinit var binding: DialogKeywordSearchBinding
     private var keyword: String = ""
 
-    fun keywordSearchDataUpdate(searchInfoList: List<Documents>) {
+    fun keywordSearchDataUpdate(searchInfoList: List<com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents>) {
         if (this::binding.isInitialized) {
             binding.setVariable(BR.searchData, searchInfoList)
         }
@@ -66,13 +66,13 @@ class KeywordSearchDialog(
 
         binding.rvKeywordSearch.run {
             adapter = object :
-                BaseRecyclerViewAdapter.Create<Documents, ItemKeywordSearchInfoListBinding>(
+                BaseRecyclerViewAdapter.Create<com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents, ItemKeywordSearchInfoListBinding>(
                     layoutResId = R.layout.item_keyword_search_info_list,
                     bindingVariableId = BR.itemKeyWordSearchInfo,
                     bindingListener = BR.keywordSearchInfoListener
                 ) {
-                override fun onItemLongClick(item: Documents, view: View): Boolean = true
-                override fun onItemClick(item: Documents, view: View) {
+                override fun onItemLongClick(item: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents, view: View): Boolean = true
+                override fun onItemClick(item: com.yun.yunseoultransportation.data.model.search.keyworkSearch.Documents, view: View) {
                     keywordSearchInterface.onSelectedItem(item)
 
                     //Documents(
