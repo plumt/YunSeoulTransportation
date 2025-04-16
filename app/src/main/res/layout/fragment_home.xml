@@ -11,46 +11,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_top_contents"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HomeFragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btn_subway"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="move subway"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            <include
+                android:id="@+id/ic_header"
+                layout="@layout/view_header"
+                app:title="@{`서울 대중교통`}" />
 
-        <Button
-            android:id="@+id/btn_bus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="move bus"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_subway" />
-
-        <Button
-            android:id="@+id/btn_path"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="move path"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_bus" />
-
-
+            <include
+                android:id="@+id/ic_search"
+                layout="@layout/view_input_btn"
+                app:hint="@{`어디로 갈까요?`}" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
