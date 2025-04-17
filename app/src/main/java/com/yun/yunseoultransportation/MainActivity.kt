@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.gms.ads.MobileAds
 import com.kakao.vectormap.KakaoMapSdk
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         (supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment).let {
             navController = it.navController
         }
+
 
         KakaoMapSdk.init(this, "9702ab8a9c569a86da0cbfa80a10a8f0")
 

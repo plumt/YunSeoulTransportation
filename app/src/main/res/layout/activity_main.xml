@@ -39,6 +39,7 @@
             app:itemActiveIndicatorStyle="@null"
             android:outlineAmbientShadowColor="@color/black"
             app:itemBackground="@android:color/transparent"
+            app:itemIconSize="28dp"
             app:itemIconTint="@color/bottom_navigation_item_selector"
             app:itemRippleColor="@android:color/transparent"
             app:itemTextAppearanceActive="@style/BottomNavigationView.Active"

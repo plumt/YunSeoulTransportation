@@ -23,18 +23,18 @@
         android:icon="@drawable/outline_departure_board_24"
         android:title="departure" />
 
-    <item
-        android:id="@+id/menu_favorite"
-        android:checkable="false"
-        android:enabled="true"
-        android:icon="@drawable/outline_star_24"
-        android:title="favorite" />
+<!--    <item-->
+<!--        android:id="@+id/menu_favorite"-->
+<!--        android:checkable="false"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/outline_star_24"-->
+<!--        android:title="favorite" />-->
 
-    <item
-        android:id="@+id/menu_setting"
-        android:checkable="false"
-        android:enabled="true"
-        android:icon="@drawable/outline_settings_24"
-        android:title="setting" />
+<!--    <item-->
+<!--        android:id="@+id/menu_setting"-->
+<!--        android:checkable="false"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/outline_settings_24"-->
+<!--        android:title="setting" />-->
 
 </menu>

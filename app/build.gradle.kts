@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.yun.yunseoultransportation"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.yun.yunseoultransportation"
         minSdk = 27
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "0.0.1"
 
@@ -104,6 +104,9 @@ dependencies {
     // Glide
     implementation(libs.glide)
     implementation("com.github.2coffees1team:GlideToVectorYou:v2.0.0")
+
+    // 애드몹
+    implementation("com.google.android.gms:play-services-ads:23.2.0")
 
     implementation(project(":domain"))
     implementation(project(":data"))
