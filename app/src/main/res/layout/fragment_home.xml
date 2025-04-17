@@ -31,6 +31,12 @@
                 android:id="@+id/ic_search"
                 layout="@layout/view_input_btn"
                 app:hint="@{`어디로 갈까요?`}" />
+
+            <include
+                android:id="@+id/ic_now_weather"
+                layout="@layout/view_now_weather"
+                app:isLoading="@{home.nowWeather.loading}"
+                app:weather="@{home.nowWeather.data}" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

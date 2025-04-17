@@ -62,7 +62,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
         routeSearchDialog = RouteSearchDialog(requireActivity(), this)
         countDownManager = CountDownManager(this)
 
-        binding.icInputBtn.layoutContainer.setOnSingleClickListener(listener = onSingleClickListener)
+        binding.icInputBtn.llSearch.setOnSingleClickListener(listener = onSingleClickListener)
         binding.cvCountDown.setOnSingleClickListener(listener = onSingleClickListener)
 
 
@@ -126,7 +126,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 
     private val onSingleClickListener: (View) -> Unit = {
         when (it.id) {
-            binding.icInputBtn.layoutContainer.id -> routeSearchDialog.show()
+            binding.icInputBtn.llSearch.id -> routeSearchDialog.show()
             binding.cvCountDown.id -> {
                 countDownManager.resetCountDown()
             }

@@ -28,4 +28,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.7.1")
     implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+
+    // 크롤링
+    implementation("org.jsoup:jsoup:1.11.3")
 }

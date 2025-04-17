@@ -101,6 +101,10 @@ dependencies {
     // 네이버맵
     implementation ("com.naver.maps:map-sdk:3.20.0")
 
+    // Glide
+    implementation(libs.glide)
+    implementation("com.github.2coffees1team:GlideToVectorYou:v2.0.0")
+
     implementation(project(":domain"))
     implementation(project(":data"))
 }
