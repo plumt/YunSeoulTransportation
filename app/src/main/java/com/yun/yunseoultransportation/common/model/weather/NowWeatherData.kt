@@ -27,16 +27,16 @@ data class NowWeatherData(
     fun uDustToString() = when(uDust) {
         WeatherState.GOOD.value -> "좋음"
         WeatherState.NORMAL.value -> "보통"
-        WeatherState.BAD.value -> "매우 나쁨"
-        WeatherState.WORST.value -> "나쁨"
+        WeatherState.BAD.value -> "나쁨"
+        WeatherState.WORST.value -> "매우 나쁨"
         else -> "알 수 없음"
     }
 
     fun uvToString() = when(uv) {
         WeatherState.GOOD.value -> "좋음"
         WeatherState.NORMAL.value -> "보통"
-        WeatherState.BAD.value -> "매우 높음"
-        WeatherState.WORST.value -> "높음"
+        WeatherState.BAD.value -> "높음"
+        WeatherState.WORST.value -> "매우 높음"
         else -> "알 수 없음"
     }
 }

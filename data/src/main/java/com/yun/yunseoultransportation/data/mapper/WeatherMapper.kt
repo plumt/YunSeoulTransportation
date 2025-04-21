@@ -14,6 +14,7 @@ import com.yun.yunseoultransportation.domain.model.weather.WeatherState
 import org.jsoup.nodes.Document
 import javax.inject.Inject
 
+
 class WeatherMapper @Inject constructor() {
 
     companion object {
@@ -40,7 +41,7 @@ class WeatherMapper @Inject constructor() {
         private fun mapToUVState(dustString: String?): WeatherState {
             if (dustString.isNullOrEmpty()) return WeatherState.UNKNOWN
 
-            val statePattern = Regex("(좋음|보통|높움|매우\\s*높음)")
+            val statePattern = Regex("(좋음|보통|높음|매우\\s*높음)")
             val stateMatch = statePattern.find(dustString)
             val stateStr = stateMatch?.value?.replace("\\s+".toRegex(), "")
 

@@ -1,5 +1,6 @@
 package com.yun.yunseoultransportation.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -18,6 +19,7 @@ import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFragment
 import com.yun.yunseoultransportation.databinding.FragmentHomeBinding
 import com.yun.yunseoultransportation.databinding.NativeAdLayoutBinding
+import com.yun.yunseoultransportation.util.Util.setStatusBarColor
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,8 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
+        setStatusBarColor(requireActivity().window, Color.WHITE)
         viewModel.getNowWeather("서울시 화곡동")
 
 
@@ -49,7 +50,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun loadNativeAd() {
         val adLoader = AdLoader.Builder(requireActivity(), "ca-app-pub-3940256099942544/2247696110")
             .forNativeAd { ad: NativeAd ->
-                Log.d("yslee","forNativeAd >>> ${ad.callToAction}")
 
                 // 이전 광고 해제
                 nativeAd?.destroy()
@@ -73,7 +73,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
 
                 override fun onAdLoaded() {
-                    Log.d("yslee", "Ad loaded successfully")
 
                 }
             })

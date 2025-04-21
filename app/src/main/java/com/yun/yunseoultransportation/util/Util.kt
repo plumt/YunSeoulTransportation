@@ -2,7 +2,10 @@ package com.yun.yunseoultransportation.util
 
 import android.content.Context
 import android.content.res.Resources
+import android.os.Build
 import android.util.TypedValue
+import android.view.Window
+import android.view.WindowInsets
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -52,5 +55,21 @@ object Util {
             nValue.toFloat(),
             resources.displayMetrics
         )
+    }
+
+    fun setStatusBarColor(window: Window, color: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) { // Android 15+
+            window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+                val statusBarInsets = insets.getInsets(WindowInsets.Type.statusBars())
+                view.setBackgroundColor(color)
+
+                // Adjust padding to avoid overlap
+                view.setPadding(0, statusBarInsets.top, 0, 0)
+                insets
+            }
+        } else {
+            // For Android 14 and below
+            window.statusBarColor = color
+        }
     }
 }

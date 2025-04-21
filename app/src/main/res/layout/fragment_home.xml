@@ -24,33 +24,21 @@
 
             <include
                 android:id="@+id/ic_header"
-                layout="@layout/view_header"
-                app:title="@{`서울 대중교통`}" />
-
-            <include
-                android:id="@+id/ic_search"
-                layout="@layout/view_input_btn"
-                app:hint="@{`어디로 갈까요?`}" />
+                layout="@layout/view_header" />
 
             <include
                 android:id="@+id/ic_now_weather"
                 layout="@layout/view_now_weather"
                 app:isLoading="@{home.nowWeather.loading}"
                 app:weather="@{home.nowWeather.data}" />
-
-
+            
             <FrameLayout
                 android:id="@+id/ad_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/black"
-                android:layout_margin="8dp" />
+                android:layout_margin="8dp"
+                android:background="@color/black" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="뭐가먼지.."
-                />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

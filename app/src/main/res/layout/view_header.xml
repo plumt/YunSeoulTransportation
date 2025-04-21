@@ -2,41 +2,44 @@
 
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="title"
-            type="String" />
-
-    </data>
+    <data></data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/iv_title"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:layout_marginStart="15dp"
-            android:fontFamily="@font/woowahan"
-            android:includeFontPadding="false"
-            android:text="@{title}"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/moduta___markmaker_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_sub_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/outline_settings_24"
-            app:layout_constraintBottom_toBottomOf="@id/tv_title"
+            android:fontFamily="@font/woowahan"
+            android:includeFontPadding="false"
+            android:text="#대중교통 #한번에 #쉽게"
+            android:textColor="@color/color_757575"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/iv_title"
+            app:layout_constraintTop_toBottomOf="@id/iv_title" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/baseline_search_24"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

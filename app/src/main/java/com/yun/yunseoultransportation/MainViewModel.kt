@@ -32,6 +32,14 @@ class MainViewModel @Inject constructor() : ViewModel() {
         _isLoading.postValue(isLoading)
     }
 
+    fun showBottomNav() {
+        _isBottomNav.value = true
+    }
+
+    fun hideBottomNav() {
+        _isBottomNav.value = false
+    }
+
 //    fun bottomNavTabEvent(item: Any): Boolean {
 //        val menuItem = item as? MenuItem ?: return false
 //        val destinationId = when (menuItem.title) {

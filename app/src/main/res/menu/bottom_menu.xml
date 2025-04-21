@@ -5,23 +5,23 @@
         android:id="@+id/menu_home"
         android:checkable="true"
         android:enabled="true"
-        android:icon="@drawable/outline_home_24"
+        android:icon="@drawable/bottom_home"
         android:title="home" />
 
     <item
-        android:id="@+id/menu_map"
+        android:id="@+id/menu_bus"
         android:checkable="false"
         android:enabled="true"
-        android:icon="@drawable/outline_map_24"
-        android:title="map" />
+        android:icon="@drawable/bottom_bus"
+        android:title="bus" />
 
 
     <item
-        android:id="@+id/menu_departure"
+        android:id="@+id/menu_subway"
         android:checkable="false"
         android:enabled="true"
-        android:icon="@drawable/outline_departure_board_24"
-        android:title="departure" />
+        android:icon="@drawable/bottom_subway"
+        android:title="subway" />
 
 <!--    <item-->
 <!--        android:id="@+id/menu_favorite"-->

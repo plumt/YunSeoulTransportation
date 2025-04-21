@@ -11,7 +11,6 @@ class YunSeoulTransportationApplication : Application() {
         super.onCreate()
         // 애드몹
         MobileAds.initialize(this) { init ->
-            Log.d("yslee","Initialization admob complete")
         }
     }
 }

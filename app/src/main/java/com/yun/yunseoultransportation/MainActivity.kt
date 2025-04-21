@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.ads.MobileAds
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavi.setOnItemSelectedListener { item ->
             val destinationId = when (item.itemId) {
                 R.id.menu_home -> R.id.homeFragment
-                R.id.menu_map -> R.id.mapFragment
+                R.id.menu_bus -> R.id.busFragment
+                R.id.menu_subway -> R.id.subwayFragment
                 else -> return@setOnItemSelectedListener false
             }
 
@@ -53,6 +55,16 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(destinationId)
 
             true
+        }
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when (destination.id) {
+                R.id.homeFragment, R.id.busFragment, R.id.subwayFragment -> {
+                    mainViewModel.showBottomNav()
+                }
+
+                else -> mainViewModel.hideBottomNav()
+            }
         }
     }
 }

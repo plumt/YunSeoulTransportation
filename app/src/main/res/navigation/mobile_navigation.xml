@@ -17,12 +17,6 @@
         android:name="com.yun.yunseoultransportation.ui.home.HomeFragment"
         android:label="home" >
         <action
-            android:id="@+id/action_homeFragment_to_subwayFragment"
-            app:destination="@id/subwayFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_busFragment"
-            app:destination="@id/busFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_pathFragment"
             app:destination="@id/pathFragment" />
     </fragment>
