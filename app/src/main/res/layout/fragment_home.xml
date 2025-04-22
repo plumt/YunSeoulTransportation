@@ -31,13 +31,45 @@
                 layout="@layout/view_now_weather"
                 app:isLoading="@{home.nowWeather.loading}"
                 app:weather="@{home.nowWeather.data}" />
-            
+
             <FrameLayout
                 android:id="@+id/ad_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <include
+                    layout="@layout/view_home_button"
+                    app:color="@{@color/color_1B4E3B}"
+                    app:img="@{@drawable/outline_star_24}"
+                    app:onClick="@{home.onFavorite}"
+                    app:title="@{`즐겨찾기`}" />
+
+                <include
+                    layout="@layout/view_home_button"
+                    app:color="@{@color/color_1B4E3B}"
+                    app:img="@{@drawable/outline_star_24}"
+                    app:onClick="@{home.onFavorite}"
+                    app:title="@{`즐겨찾기`}" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

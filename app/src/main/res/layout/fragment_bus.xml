@@ -27,19 +27,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <include
-            android:id="@+id/ic_input_btn"
-            layout="@layout/view_input_btn"
+        <com.yun.yunseoultransportation.ui.components.BusSearchBarView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_count_down"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
             android:backgroundTint="@color/white"
             android:visibility="@{bus.isBusDataVisible ? View.VISIBLE : View.INVISIBLE}"
             app:cardCornerRadius="50dp"
-            android:id="@+id/cv_count_down"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -52,10 +53,10 @@
                 android:id="@+id/tv_count_down"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{count_down}"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:includeFontPadding="false" />
+                android:includeFontPadding="false"
+                android:text="@{count_down}" />
 
 
         </com.google.android.material.card.MaterialCardView>

@@ -2,7 +2,6 @@ package com.yun.yunseoultransportation.ui.bus
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -21,17 +20,13 @@ import com.yun.yunseoultransportation.common.model.toBusMarker
 import com.yun.yunseoultransportation.common.model.toBusStationMarker
 import com.yun.yunseoultransportation.common.model.toNaverPolyline
 import com.yun.yunseoultransportation.databinding.FragmentBusBinding
-import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
-import com.yun.yunseoultransportation.ui.dialog.RouteSearchDialog
-import com.yun.yunseoultransportation.ui.dialog.RouteSearchInterface
 import com.yun.yunseoultransportation.util.Util.dpToPx
 import com.yun.yunseoultransportation.util.Util.observeWithLifecycle
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReadyCallback,
-    RouteSearchInterface, CountDownInterface {
+class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReadyCallback, CountDownInterface {
     override val viewModel: BusViewModel by viewModels()
     override fun getResourceId(): Int = R.layout.fragment_bus
     override fun isLoading(): LiveData<Boolean>? = null
@@ -42,7 +37,6 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
     private lateinit var naverMap: NaverMap
     private lateinit var naverMapManager: NaverMapManager
 
-    private lateinit var routeSearchDialog: RouteSearchDialog
     private lateinit var countDownManager: CountDownManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,14 +49,22 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
             }
 
         naverMapView.getMapAsync(this)
-        routeSearchDialog = RouteSearchDialog(requireActivity(), this)
         countDownManager = CountDownManager(this)
 
-        binding.icInputBtn.llSearch.setOnSingleClickListener(listener = onSingleClickListener)
         binding.cvCountDown.setOnSingleClickListener(listener = onSingleClickListener)
 
+        binding.searchBar.setOnSearchListener { keyword ->
+            viewModel.getBusRouteList(keyword)
+        }
+        binding.searchBar.setOnSelectedListener { item ->
+            viewModel.getRoutePath(item.busRouteId)
+            viewModel.getBusPosByRtid(item.busRouteId)
+            viewModel.getStaionByRoute(item.busRouteId)
+            countDownManager.stopCountDown()
+        }
+
         viewModel.busRouteInfoList.observeWithLifecycle(viewLifecycleOwner){
-            routeSearchDialog.routeSearchDataUpdate(it)
+            binding.searchBar.updateData(it)
         }
 
         viewModel.busPathData.observeWithLifecycle(viewLifecycleOwner) {
@@ -105,7 +107,6 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
 
     private val onSingleClickListener: (View) -> Unit = {
         when (it.id) {
-            binding.icInputBtn.llSearch.id -> routeSearchDialog.show()
             binding.cvCountDown.id -> {
                 countDownManager.resetCountDown()
             }
@@ -117,18 +118,6 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
         if (seconds == 0L && viewModel.selectedBusRouteId.value.isNotEmpty()) {
             viewModel.getBusPosByRtid(viewModel.selectedBusRouteId.value)
         }
-    }
-
-    override fun onSelectedItem(item: BusStationInfo) {
-        viewModel.getRoutePath(item.busRouteId)
-        viewModel.getBusPosByRtid(item.busRouteId)
-        viewModel.getStaionByRoute(item.busRouteId)
-        routeSearchDialog.dismiss()
-        countDownManager.stopCountDown()
-    }
-
-    override fun keywordResult(keyword: String) {
-        viewModel.getBusRouteList(keyword)
     }
 
     override fun onMapReady(naverMap: NaverMap) {

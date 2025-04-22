@@ -44,7 +44,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
 
         loadNativeAd()
-
     }
 
     private fun loadNativeAd() {

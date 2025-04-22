@@ -33,6 +33,13 @@
             layout="@layout/view_input_btn"
             app:layout_constraintTop_toTopOf="parent" />
 
+<!--        <com.yun.yunseoultransportation.ui.components.SearchBarView-->
+<!--            android:id="@+id/search_bar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            />-->
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="50dp"
             android:layout_height="50dp"

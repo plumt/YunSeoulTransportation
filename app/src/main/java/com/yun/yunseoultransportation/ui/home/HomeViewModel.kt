@@ -39,4 +39,9 @@ private val _nowWeather = MutableStateFlow<UiState<NowWeatherData>>(UiState())
             }
         }
     }
+
+    fun onFavorite() {
+        Log.d("yslee","onFavorite")
+
+    }
 }
