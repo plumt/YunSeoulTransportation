@@ -22,6 +22,7 @@ import com.yun.yunseoultransportation.common.model.toBusMarker
 import com.yun.yunseoultransportation.common.model.toBusStationMarker
 import com.yun.yunseoultransportation.common.model.toNaverPolyline
 import com.yun.yunseoultransportation.databinding.FragmentMapBinding
+import com.yun.yunseoultransportation.databinding.ItemRouteSearchBusInfoListBinding
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchDialog
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchInterface
@@ -32,8 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReadyCallback,
-    RouteSearchInterface, CountDownInterface {
+class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReadyCallback, CountDownInterface {
     override val viewModel: MapViewModel by viewModels()
     override fun getResourceId(): Int = R.layout.fragment_map
     override fun isLoading(): LiveData<Boolean>? = null
@@ -43,7 +43,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 
     private lateinit var naverMap: NaverMap
     private lateinit var naverMapManager: NaverMapManager
-    private lateinit var routeSearchDialog: RouteSearchDialog
+    private lateinit var routeSearchDialog: RouteSearchDialog<BusStationInfo, ItemRouteSearchBusInfoListBinding>
 
     private lateinit var countDownManager: CountDownManager
 
@@ -59,7 +59,25 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 
         naverMapView.getMapAsync(this)
 
-        routeSearchDialog = RouteSearchDialog(requireActivity(), this)
+        routeSearchDialog = RouteSearchDialog(requireActivity(),
+            object : RouteSearchInterface<BusStationInfo> {
+                override fun keywordResult(keyword: String) {
+                    viewModel.getBusRouteList(keyword)
+                }
+
+                override fun onSelectedItem(item: BusStationInfo) {
+                    // 버스 정보 처리
+                    viewModel.getRoutePath(item.busRouteId)
+                    viewModel.getBusPosByRtid(item.busRouteId)
+                    viewModel.getStaionByRoute(item.busRouteId)
+                    routeSearchDialog.dismiss()
+                    countDownManager.stopCountDown()
+                }
+            },
+            R.layout.item_route_search_bus_info_list,
+            BR.itemRouteSearchBusInfo,
+            BR.routeSearchBusInfoListener,
+            )
         countDownManager = CountDownManager(this)
 
         binding.icInputBtn.llSearch.setOnSingleClickListener(listener = onSingleClickListener)
@@ -150,21 +168,6 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
         }
         naverMapManager = NaverMapManager(naverMap)
     }
-
-    override fun onSelectedItem(item: BusStationInfo) {
-        Log.d("yslee", "onSelectedItem > $item")
-        viewModel.getRoutePath(item.busRouteId)
-        viewModel.getBusPosByRtid(item.busRouteId)
-        viewModel.getStaionByRoute(item.busRouteId)
-        routeSearchDialog.dismiss()
-        countDownManager.stopCountDown()
-    }
-
-    override fun keywordResult(keyword: String) {
-        viewModel.getBusRouteList(keyword)
-        Log.d("yslee", "keywordResult > $keyword")
-    }
-
 
     override fun onDestroyView() {
         Log.d("yslee", "onDestroy")

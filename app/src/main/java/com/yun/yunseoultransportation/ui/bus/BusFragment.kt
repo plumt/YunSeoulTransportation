@@ -3,6 +3,7 @@ package com.yun.yunseoultransportation.ui.bus
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.naver.maps.map.MapFragment
@@ -22,6 +23,7 @@ import com.yun.yunseoultransportation.common.model.toNaverPolyline
 import com.yun.yunseoultransportation.databinding.FragmentBusBinding
 import com.yun.yunseoultransportation.util.Util.dpToPx
 import com.yun.yunseoultransportation.util.Util.observeWithLifecycle
+import com.yun.yunseoultransportation.util.Util.setStatusBarColor
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +43,8 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setStatusBarColor(requireActivity().window, ContextCompat.getColor(requireContext(), R.color.color_1B4E3B), false)
 
         val fm = childFragmentManager
         val naverMapView = fm.findFragmentById(binding.naverMapView.id) as MapFragment?
