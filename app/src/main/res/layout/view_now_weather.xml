@@ -32,22 +32,19 @@
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:visibility="@{isLoading ? View.VISIBLE : View.INVISIBLE}"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="20dp"
             android:backgroundTint="@color/white"
             android:clickable="false"
+            android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,15 +114,15 @@
                     android:id="@+id/v_line"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginVertical="20dp"
                     android:layout_marginHorizontal="30dp"
+                    android:layout_marginVertical="20dp"
                     android:background="@color/color_f4f4f4" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="20dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal"
                     android:weightSum="4">
 
@@ -134,8 +131,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:title="@{`미세먼지`}"
                         app:level="@{weather.dust}"
+                        app:title="@{`미세먼지`}"
                         app:value="@{weather.dustToString()}" />
 
                     <include
@@ -143,8 +140,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:title="@{`초미세먼지`}"
                         app:level="@{weather.UDust}"
+                        app:title="@{`초미세먼지`}"
                         app:value="@{weather.uDustToString()}" />
 
                     <include
@@ -152,8 +149,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:title="@{`자외선`}"
                         app:level="@{weather.uv}"
+                        app:title="@{`자외선`}"
                         app:value="@{weather.uvToString()}" />
 
                     <include

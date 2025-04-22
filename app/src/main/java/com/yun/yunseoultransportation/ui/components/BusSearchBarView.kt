@@ -2,10 +2,9 @@ package com.yun.yunseoultransportation.ui.components
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.yun.yunseoultransportation.databinding.ViewSearchBarBinding
+import com.yun.yunseoultransportation.databinding.ViewBusSearchBarBinding
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchDialog
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchInterface
@@ -17,7 +16,7 @@ class BusSearchBarView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr), RouteSearchInterface {
 
-    private lateinit var binding: ViewSearchBarBinding
+    private lateinit var binding: ViewBusSearchBarBinding
     private lateinit var routeSearchDialog: RouteSearchDialog
     private var searchCallback: ((String) -> Unit)? = null
     private var selectedItemCallback: ((BusStationInfo) -> Unit)? = null
@@ -27,7 +26,7 @@ class BusSearchBarView @JvmOverloads constructor(
     }
 
     private fun initView() {
-        binding = ViewSearchBarBinding.inflate(LayoutInflater.from(context), this, true)
+        binding = ViewBusSearchBarBinding.inflate(LayoutInflater.from(context), this, true)
         routeSearchDialog = RouteSearchDialog(context, this)
         binding.llSearch.setOnSingleClickListener {
             routeSearchDialog.show()

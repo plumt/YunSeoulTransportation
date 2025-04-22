@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <data>
 
@@ -10,68 +10,115 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_top_contents"
+        <include
+            android:id="@+id/ic_header"
+            layout="@layout/view_header" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:paddingTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_header">
 
-            <include
-                android:id="@+id/ic_header"
-                layout="@layout/view_header" />
-
-            <include
-                android:id="@+id/ic_now_weather"
-                layout="@layout/view_now_weather"
-                app:isLoading="@{home.nowWeather.loading}"
-                app:weather="@{home.nowWeather.data}" />
-
-            <FrameLayout
-                android:id="@+id/ad_frame"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@color/black" />
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
 
-                <Space
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <LinearLayout
+                    android:id="@+id/ll_weather"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/gl_end"
+                    app:layout_constraintStart_toStartOf="@id/gl_start"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <include
-                    layout="@layout/view_home_button"
-                    app:color="@{@color/color_1B4E3B}"
-                    app:img="@{@drawable/outline_star_24}"
-                    app:onClick="@{home.onFavorite}"
-                    app:title="@{`즐겨찾기`}" />
+                    <include
+                        android:id="@+id/ic_now_weather"
+                        layout="@layout/view_now_weather"
+                        app:isLoading="@{home.nowWeather.loading}"
+                        app:weather="@{home.nowWeather.data}" />
 
-                <include
-                    layout="@layout/view_home_button"
-                    app:color="@{@color/color_1B4E3B}"
-                    app:img="@{@drawable/outline_star_24}"
-                    app:onClick="@{home.onFavorite}"
-                    app:title="@{`즐겨찾기`}" />
 
-                <Space
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@id/gl_end"
+                    app:layout_constraintStart_toStartOf="@id/gl_start"
+                    app:layout_constraintTop_toBottomOf="@id/ll_weather">
 
-            </LinearLayout>
+                    <com.yun.yunseoultransportation.ui.components.LargeNativeAdView
+                        android:id="@+id/native_ad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <include
+                            layout="@layout/view_home_button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:color="@{@color/color_1B4E3B}"
+                            app:img="@{@drawable/outline_star_24}"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:onClick="@{home.onFavorite}"
+                            app:title="@{`즐겨찾기`}" />
+
+                        <include
+                            layout="@layout/view_home_button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:color="@{@color/color_1B4E3B}"
+                            app:img="@{@drawable/outline_star_24}"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:onClick="@{home.onFavorite}"
+                            app:title="@{`즐겨찾기`}" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="500dp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
