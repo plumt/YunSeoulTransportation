@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="BusSearchBarView">
-        <attr name="searchType" format="enum">
-            <enum name="bus" value="0" />
-            <enum name="subway" value="1" />
-        </attr>
+
+    <attr name="searchType" format="enum">
+        <enum name="bus" value="0" />
+        <enum name="subway" value="1" />
+    </attr>
+
+    <declare-styleable name="TransportSearchBarView">
+        <attr name="searchType" />
+    </declare-styleable>
+
+    <declare-styleable name="TransportSearchButtonView">
+        <attr name="searchType" />
+        <attr name="searchButtonText" format="string" />
+        <attr name="searchButtonColor" format="color" />
+        <attr name="searchButtonImage" format="reference" />
+
     </declare-styleable>
 </resources>

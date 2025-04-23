@@ -9,6 +9,8 @@ import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFragment
 import com.yun.yunseoultransportation.databinding.FragmentHomeBinding
+import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
+import com.yun.yunseoultransportation.ui.components.TransportSearchButtonView
 import com.yun.yunseoultransportation.util.Util.setStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +29,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         setStatusBarColor(requireActivity().window, Color.WHITE)
         viewModel.getNowWeather("서울시 화곡동")
 
+        (binding.btnSearchBus as TransportSearchButtonView<BusStationInfo>).run {
+            setOnSearchListener { keyword ->
+//                viewModel.getBusRouteList(keyword)
+            }
+            setOnSelectedListener { item ->
+//                viewModel.getRoutePath(item.busRouteId)
+//                viewModel.getBusPosByRtid(item.busRouteId)
+//                viewModel.getStaionByRoute(item.busRouteId)
+//                countDownManager.stopCountDown()
+            }
+        }
 
     }
 

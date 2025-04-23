@@ -100,35 +100,34 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <include
+                        <com.yun.yunseoultransportation.ui.components.TransportSearchButtonView
                             android:id="@+id/btn_search_bus"
-                            layout="@layout/view_home_button"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginEnd="4dp"
-                            app:color="@{@color/color_ffd100}"
-                            app:img="@{@drawable/outline_star_24}"
                             app:layout_constraintDimensionRatio="1:1"
                             app:layout_constraintEnd_toStartOf="@id/btn_search_subway"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:onClick="@{home.onFavorite}"
-                            app:title="@{`버스 검색`}" />
+                            app:searchButtonColor="@color/color_ffd100"
+                            app:searchButtonImage="@drawable/outline_star_24"
+                            app:searchButtonText="버스 검색"
+                            app:searchType="bus" />
 
-                        <include
+                        <com.yun.yunseoultransportation.ui.components.TransportSearchButtonView
                             android:id="@+id/btn_search_subway"
-                            layout="@layout/view_home_button"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_marginStart="4dp"
-                            app:color="@{@color/color_1B4E3B}"
-                            app:img="@{@drawable/outline_star_24}"
+                            android:layout_marginEnd="4dp"
                             app:layout_constraintDimensionRatio="1:1"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/btn_search_bus"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:onClick="@{home.onFavorite}"
-                            app:title="@{`지하철 검색`}" />
+                            app:searchButtonColor="@color/color_1B4E3B"
+                            app:searchButtonImage="@drawable/outline_star_24"
+                            app:searchButtonText="지하철 검색"
+                            app:searchType="subway" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <Space
