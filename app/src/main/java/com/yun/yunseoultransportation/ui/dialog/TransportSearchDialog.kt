@@ -1,6 +1,5 @@
 package com.yun.yunseoultransportation.ui.dialog
 
-import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +8,11 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFullScreenDialog
 import com.yun.yunseoultransportation.base.BaseRecyclerViewAdapter
-import com.yun.yunseoultransportation.databinding.DialogRouteSearchBinding
-import com.yun.yunseoultransportation.databinding.ItemRouteSearchBusInfoListBinding
-import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
+import com.yun.yunseoultransportation.base.BindingAdapters.replace
+import com.yun.yunseoultransportation.databinding.DialogTransportSearchBinding
 import com.yun.yunseoultransportation.util.extensions.dialogResize
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 
@@ -32,12 +29,12 @@ class RouteSearchDialog<T : Any, B : ViewDataBinding>(
     private val bindingListenerId: Int,
 ) : BaseFullScreenDialog(context) {
 
-    private lateinit var binding: DialogRouteSearchBinding
+    private lateinit var binding: DialogTransportSearchBinding
     private var keyword: String = ""
 
     fun routeSearchDataUpdate(searchInfoList: List<T>) {
         if (this::binding.isInitialized) {
-            binding.setVariable(BR.searchData, searchInfoList)
+            binding.rvBusRouteSearch.replace(searchInfoList)
         }
     }
 
@@ -45,7 +42,7 @@ class RouteSearchDialog<T : Any, B : ViewDataBinding>(
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.dialog_route_search,
+            R.layout.dialog_transport_search,
             null,
             false
         )

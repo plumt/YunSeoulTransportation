@@ -22,7 +22,7 @@ import com.yun.yunseoultransportation.common.model.toBusMarker
 import com.yun.yunseoultransportation.common.model.toBusStationMarker
 import com.yun.yunseoultransportation.common.model.toNaverPolyline
 import com.yun.yunseoultransportation.databinding.FragmentMapBinding
-import com.yun.yunseoultransportation.databinding.ItemRouteSearchBusInfoListBinding
+import com.yun.yunseoultransportation.databinding.ItemTransportSearchBusInfoListBinding
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchDialog
 import com.yun.yunseoultransportation.ui.dialog.RouteSearchInterface
@@ -43,7 +43,7 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 
     private lateinit var naverMap: NaverMap
     private lateinit var naverMapManager: NaverMapManager
-    private lateinit var routeSearchDialog: RouteSearchDialog<BusStationInfo, ItemRouteSearchBusInfoListBinding>
+    private lateinit var routeSearchDialog: RouteSearchDialog<BusStationInfo, ItemTransportSearchBusInfoListBinding>
 
     private lateinit var countDownManager: CountDownManager
 
@@ -74,9 +74,9 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
                     countDownManager.stopCountDown()
                 }
             },
-            R.layout.item_route_search_bus_info_list,
-            BR.itemRouteSearchBusInfo,
-            BR.routeSearchBusInfoListener,
+            R.layout.item_transport_search_bus_info_list,
+            BR.itemTransportSearchBusInfo,
+            BR.transportSearchBusInfoListener,
             )
         countDownManager = CountDownManager(this)
 

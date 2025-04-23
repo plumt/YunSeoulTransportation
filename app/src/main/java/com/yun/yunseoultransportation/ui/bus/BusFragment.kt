@@ -21,6 +21,8 @@ import com.yun.yunseoultransportation.common.model.toBusMarker
 import com.yun.yunseoultransportation.common.model.toBusStationMarker
 import com.yun.yunseoultransportation.common.model.toNaverPolyline
 import com.yun.yunseoultransportation.databinding.FragmentBusBinding
+import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
+import com.yun.yunseoultransportation.ui.components.TransportSearchBarView
 import com.yun.yunseoultransportation.util.Util.dpToPx
 import com.yun.yunseoultransportation.util.Util.observeWithLifecycle
 import com.yun.yunseoultransportation.util.Util.setStatusBarColor
@@ -57,14 +59,16 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
 
         binding.cvCountDown.setOnSingleClickListener(listener = onSingleClickListener)
 
-        binding.searchBar.setOnSearchListener { keyword ->
-            viewModel.getBusRouteList(keyword)
-        }
-        binding.searchBar.setOnSelectedListener { item ->
-            viewModel.getRoutePath(item.busRouteId)
-            viewModel.getBusPosByRtid(item.busRouteId)
-            viewModel.getStaionByRoute(item.busRouteId)
-            countDownManager.stopCountDown()
+        (binding.searchBar as TransportSearchBarView<BusStationInfo>).run {
+            setOnSearchListener { keyword ->
+                viewModel.getBusRouteList(keyword)
+            }
+            setOnSelectedListener { item ->
+                viewModel.getRoutePath(item.busRouteId)
+                viewModel.getBusPosByRtid(item.busRouteId)
+                viewModel.getStaionByRoute(item.busRouteId)
+                countDownManager.stopCountDown()
+            }
         }
 
         viewModel.busRouteInfoList.observeWithLifecycle(viewLifecycleOwner){

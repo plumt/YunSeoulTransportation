@@ -5,11 +5,11 @@
     <data>
 
         <variable
-            name="itemRouteSearchBusInfo"
+            name="itemTransportSearchBusInfo"
             type="com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo" />
 
         <variable
-            name="routeSearchBusInfoListener"
+            name="transportSearchBusInfoListener"
             type="com.yun.yunseoultransportation.base.BaseRecyclerViewAdapter.OnItemClickListener" />
     </data>
 
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:clickable="true"
-        android:onClick="@{(v) -> routeSearchBusInfoListener.onItemClick(itemRouteSearchBusInfo, v)}"
+        android:onClick="@{(v) -> transportSearchBusInfoListener.onItemClick(itemTransportSearchBusInfo, v)}"
         android:paddingHorizontal="10dp">
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@{itemRouteSearchBusInfo.busRouteNm}"
+            android:text="@{itemTransportSearchBusInfo.busRouteNm}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@{itemRouteSearchBusInfo.stationNm}"
+            android:text="@{itemTransportSearchBusInfo.stationNm}"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_bus_route_name" />
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@{itemRouteSearchBusInfo.edationNm}"
+            android:text="@{itemTransportSearchBusInfo.edationNm}"
             app:layout_constraintBottom_toBottomOf="@id/tv_stStationNm"
             app:layout_constraintStart_toEndOf="@id/iv_arrow"
             app:layout_constraintTop_toTopOf="@id/tv_stStationNm" />

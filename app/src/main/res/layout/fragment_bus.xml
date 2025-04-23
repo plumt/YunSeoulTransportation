@@ -27,10 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.yun.yunseoultransportation.ui.components.BusSearchBarView
+        <com.yun.yunseoultransportation.ui.components.TransportSearchBarView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:searchType="bus"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
