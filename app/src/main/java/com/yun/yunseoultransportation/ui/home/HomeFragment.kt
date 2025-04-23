@@ -1,11 +1,14 @@
 package com.yun.yunseoultransportation.ui.home
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.yun.yunseoultransportation.BR
+import com.yun.yunseoultransportation.MainActivity
 import com.yun.yunseoultransportation.R
 import com.yun.yunseoultransportation.base.BaseFragment
 import com.yun.yunseoultransportation.databinding.FragmentHomeBinding
@@ -31,9 +34,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
         (binding.btnSearchBus as TransportSearchButtonView<BusStationInfo>).run {
             setOnSearchListener { keyword ->
+                viewModel.getBusRouteList(keyword) { item ->
+                    this.updateData(item)
+                }
 //                viewModel.getBusRouteList(keyword)
             }
             setOnSelectedListener { item ->
+                navigate(R.id.busFragment, Bundle().apply {
+                    putString("busRouteId",item.busRouteId)
+                })
+                Log.d("yslee","setOnSelectedListener > $item")
 //                viewModel.getRoutePath(item.busRouteId)
 //                viewModel.getBusPosByRtid(item.busRouteId)
 //                viewModel.getStaionByRoute(item.busRouteId)

@@ -2,6 +2,7 @@ package com.yun.yunseoultransportation.ui.bus
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -28,9 +29,14 @@ import com.yun.yunseoultransportation.util.Util.observeWithLifecycle
 import com.yun.yunseoultransportation.util.Util.setStatusBarColor
 import com.yun.yunseoultransportation.util.extensions.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReadyCallback, CountDownInterface {
+class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReadyCallback,
+    CountDownInterface {
     override val viewModel: BusViewModel by viewModels()
     override fun getResourceId(): Int = R.layout.fragment_bus
     override fun isLoading(): LiveData<Boolean>? = null
@@ -46,7 +52,11 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setStatusBarColor(requireActivity().window, ContextCompat.getColor(requireContext(), R.color.color_1B4E3B), false)
+        setStatusBarColor(
+            requireActivity().window,
+            ContextCompat.getColor(requireContext(), R.color.color_1B4E3B),
+            false
+        )
 
         val fm = childFragmentManager
         val naverMapView = fm.findFragmentById(binding.naverMapView.id) as MapFragment?
@@ -56,6 +66,8 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
 
         naverMapView.getMapAsync(this)
         countDownManager = CountDownManager(this)
+
+
 
         binding.cvCountDown.setOnSingleClickListener(listener = onSingleClickListener)
 
@@ -71,7 +83,7 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
             }
         }
 
-        viewModel.busRouteInfoList.observeWithLifecycle(viewLifecycleOwner){
+        viewModel.busRouteInfoList.observeWithLifecycle(viewLifecycleOwner) {
             binding.searchBar.updateData(it)
         }
 
@@ -133,6 +145,15 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
             setLayerGroupEnabled(LAYER_GROUP_TRAFFIC, true)
         }
         naverMapManager = NaverMapManager(naverMap)
+
+        arguments?.let {
+            it.getString("busRouteId")?.let { busRouteId ->
+                viewModel.getRoutePath(busRouteId)
+                viewModel.getBusPosByRtid(busRouteId)
+                viewModel.getStaionByRoute(busRouteId)
+                countDownManager.stopCountDown()
+            }
+        }
     }
 
     override fun onDestroyView() {

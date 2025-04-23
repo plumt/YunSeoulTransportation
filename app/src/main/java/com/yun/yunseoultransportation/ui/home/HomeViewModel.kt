@@ -6,8 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.yun.yunseoultransportation.common.model.UiState
 import com.yun.yunseoultransportation.common.model.weather.NowWeatherData
 import com.yun.yunseoultransportation.common.model.weather.toNowWeatherData
+import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
+import com.yun.yunseoultransportation.domain.model.busStation.BusStationResult
 import com.yun.yunseoultransportation.domain.model.weather.NowWeather
 import com.yun.yunseoultransportation.domain.model.weather.WeatherResult
+import com.yun.yunseoultransportation.domain.usecase.BusUseCase
 import com.yun.yunseoultransportation.domain.usecase.WeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val weatherUseCase: WeatherUseCase
+    private val weatherUseCase: WeatherUseCase,
+    private val busUseCase: BusUseCase
 ) : ViewModel() {
 
 private val _nowWeather = MutableStateFlow<UiState<NowWeatherData>>(UiState())
@@ -40,8 +44,18 @@ private val _nowWeather = MutableStateFlow<UiState<NowWeatherData>>(UiState())
         }
     }
 
-    fun onFavorite() {
-        Log.d("yslee","onFavorite")
-
+    // 노선번호에 해당하는 노선 목록 조회
+    // ex) 146 검색 > 146 번호가 들어가는 버스 목록 조회
+    fun getBusRouteList(strSrch: String, callback: (List<BusStationInfo>) -> Unit) {
+        viewModelScope.launch {
+            when (val result = busUseCase.getBusRouteList(strSrch)) {
+                is BusStationResult.Success -> callback(result.busStationInfo)
+                is BusStationResult.Empty -> {}
+                is BusStationResult.Error -> Log.e(
+                    "yslee",
+                    "getBusRouteList error > ${result.message}"
+                )
+            }
+        }
     }
 }
