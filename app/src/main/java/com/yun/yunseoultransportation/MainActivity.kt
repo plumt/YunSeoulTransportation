@@ -44,26 +44,17 @@ class MainActivity : AppCompatActivity() {
 
         KakaoMapSdk.init(this, "9702ab8a9c569a86da0cbfa80a10a8f0")
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
         binding.bottomNavi.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            val menuId = when (destination.id) {
+            when (destination.id) {
                 R.id.homeFragment, R.id.busFragment, R.id.subwayFragment -> {
                     mainViewModel.showBottomNav()
-                    destination.id
                 }
 
                 else -> {
                     mainViewModel.hideBottomNav()
-                    null
                 }
-            }
-
-            menuId?.let {
-                binding.bottomNavi.post { binding.bottomNavi.setSelectedItemId(it) }
             }
         }
     }

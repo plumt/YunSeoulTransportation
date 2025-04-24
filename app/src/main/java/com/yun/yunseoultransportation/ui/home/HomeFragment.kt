@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavOptions
 import com.yun.yunseoultransportation.BR
 import com.yun.yunseoultransportation.MainActivity
 import com.yun.yunseoultransportation.R
@@ -40,10 +41,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 //                viewModel.getBusRouteList(keyword)
             }
             setOnSelectedListener { item ->
-                navigate(R.id.busFragment, Bundle().apply {
-                    putString("busRouteId",item.busRouteId)
-                })
-                Log.d("yslee","setOnSelectedListener > $item")
+
+                navigate(
+                    R.id.busFragment, Bundle().apply {
+                        putString("busRouteId", item.busRouteId)
+                    }, NavOptions.Builder()
+                        .setPopUpTo(R.id.mobile_navigation, false)
+                        .build()
+                )
+                Log.d("yslee", "setOnSelectedListener > $item")
 //                viewModel.getRoutePath(item.busRouteId)
 //                viewModel.getBusPosByRtid(item.busRouteId)
 //                viewModel.getStaionByRoute(item.busRouteId)
