@@ -13,8 +13,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.MobileAds
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kakao.vectormap.KakaoMapSdk
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -37,33 +42,28 @@ class MainActivity : AppCompatActivity() {
             navController = it.navController
         }
 
-
         KakaoMapSdk.init(this, "9702ab8a9c569a86da0cbfa80a10a8f0")
 
-        binding.bottomNavi.setOnItemSelectedListener { item ->
-            val destinationId = when (item.itemId) {
-                R.id.menu_home -> R.id.homeFragment
-                R.id.menu_bus -> R.id.busFragment
-                R.id.menu_subway -> R.id.subwayFragment
-                else -> return@setOnItemSelectedListener false
-            }
-
-            // 현재 화면이면 이동하지 않음
-            if (navController.currentDestination?.id == destinationId) {
-                return@setOnItemSelectedListener false
-            }
-            navController.navigate(destinationId)
-
-            true
-        }
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavi.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when (destination.id) {
+            val menuId = when (destination.id) {
                 R.id.homeFragment, R.id.busFragment, R.id.subwayFragment -> {
                     mainViewModel.showBottomNav()
+                    destination.id
                 }
 
-                else -> mainViewModel.hideBottomNav()
+                else -> {
+                    mainViewModel.hideBottomNav()
+                    null
+                }
+            }
+
+            menuId?.let {
+                binding.bottomNavi.post { binding.bottomNavi.setSelectedItemId(it) }
             }
         }
     }

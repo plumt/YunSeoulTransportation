@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_home"
+        android:id="@+id/homeFragment"
         android:checkable="true"
         android:enabled="true"
         android:icon="@drawable/bottom_home"
         android:title="home" />
 
     <item
-        android:id="@+id/menu_bus"
+        android:id="@+id/busFragment"
         android:checkable="false"
         android:enabled="true"
         android:icon="@drawable/bottom_bus"
@@ -17,7 +17,7 @@
 
 
     <item
-        android:id="@+id/menu_subway"
+        android:id="@+id/subwayFragment"
         android:checkable="false"
         android:enabled="true"
         android:icon="@drawable/bottom_subway"
