@@ -12,10 +12,9 @@ import com.yun.yunseoultransportation.data.model.weather.WeatherDto
 import com.yun.yunseoultransportation.domain.model.weather.NowWeather
 import com.yun.yunseoultransportation.domain.model.weather.WeatherState
 import org.jsoup.nodes.Document
-import javax.inject.Inject
 
 
-class WeatherMapper @Inject constructor() {
+class WeatherMapper {
 
     companion object {
 
