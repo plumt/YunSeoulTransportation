@@ -44,7 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
                 navigate(
                     R.id.busFragment, Bundle().apply {
-                        putString("busRouteId", item.busRouteId)
+//                        putString("busRouteId", item.busRouteId)
                     }, NavOptions.Builder()
                         .setPopUpTo(R.id.mobile_navigation, false)
                         .build()

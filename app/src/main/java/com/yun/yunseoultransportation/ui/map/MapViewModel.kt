@@ -56,6 +56,7 @@ class MapViewModel @Inject constructor(
                     "yslee",
                     "getBusRouteList error > ${result.message}"
                 )
+                is BusStationResult.Loading -> {}
             }
         }
     }
@@ -95,6 +96,7 @@ class MapViewModel @Inject constructor(
                     "yslee",
                     "getStaionByRoute error > ${result.message}"
                 )
+                is BusStationResult.Loading -> {}
             }
         }
     }

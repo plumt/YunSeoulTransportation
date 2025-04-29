@@ -68,17 +68,21 @@ class BusFragment : BaseFragment<FragmentBusBinding, BusViewModel>(), OnMapReady
         countDownManager = CountDownManager(this)
 
 
+        viewModel.getStationByName()
+//        viewModel.getStationByUid()
+
 
         binding.cvCountDown.setOnSingleClickListener(listener = onSingleClickListener)
 
         (binding.searchBar as TransportSearchBarView<BusStationInfo>).run {
             setOnSearchListener { keyword ->
                 viewModel.getBusRouteList(keyword)
+                viewModel.getLowStationByUid(keyword)
             }
             setOnSelectedListener { item ->
-                viewModel.getRoutePath(item.busRouteId)
-                viewModel.getBusPosByRtid(item.busRouteId)
-                viewModel.getStaionByRoute(item.busRouteId)
+//                viewModel.getRoutePath(item.busRouteId)
+//                viewModel.getBusPosByRtid(item.busRouteId)
+//                viewModel.getStaionByRoute(item.busRouteId)
                 countDownManager.stopCountDown()
             }
         }

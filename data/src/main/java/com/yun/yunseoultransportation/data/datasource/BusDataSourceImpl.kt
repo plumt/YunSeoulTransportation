@@ -4,7 +4,7 @@ import com.yun.yunseoultransportation.data.model.bus.busPosByRtid.BusPosByRtidRe
 import com.yun.yunseoultransportation.data.model.bus.busPosByVehId.BusPosByVehIdResponse
 import com.yun.yunseoultransportation.data.model.bus.busRouteList.BusRouteListResponse
 import com.yun.yunseoultransportation.data.model.bus.routePath.RoutePathResponse
-import com.yun.yunseoultransportation.data.model.bus.staionByRoute.StaionByRouteResponse
+import com.yun.yunseoultransportation.data.model.bus.stationByRoute.StationByRouteResponse
 import com.yun.yunseoultransportation.data.remote.api.BusApiService
 import retrofit2.Response
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class BusDataSourceImpl @Inject constructor(
     private val busApiService: BusApiService
 ) : BusDataSource {
 
-    override suspend fun getStaionByRoute(busRouteId: String): Response<StaionByRouteResponse> =
+    override suspend fun getStaionByRoute(busRouteId: String): Response<StationByRouteResponse> =
         busApiService.getStaionByRoute(busRouteId = busRouteId)
 
     override suspend fun getRoutePath(busRouteId: String): Response<RoutePathResponse> =
@@ -34,4 +34,7 @@ class BusDataSourceImpl @Inject constructor(
 
     override suspend fun getBusRouteList(strSrch: String): Response<BusRouteListResponse> =
         busApiService.getBusRouteList(strSrch = strSrch)
+
+//    override suspend fun getLowStationByUid(arsId: String): Response<LowStationByUidResponse> =
+//        busApiService.getStaionByRoute(arsId = arsId)
 }

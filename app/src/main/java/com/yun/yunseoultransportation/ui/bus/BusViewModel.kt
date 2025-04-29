@@ -3,12 +3,14 @@ package com.yun.yunseoultransportation.ui.bus
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yun.yunseoultransportation.domain.model.ApiResult
 import com.yun.yunseoultransportation.domain.model.bus.BusInfo
 import com.yun.yunseoultransportation.domain.model.bus.BusResult
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationResult
 import com.yun.yunseoultransportation.domain.model.path.BusPathInfo
 import com.yun.yunseoultransportation.domain.model.path.BusPathResult
+import com.yun.yunseoultransportation.domain.usecase.BusStationUseCase
 import com.yun.yunseoultransportation.domain.usecase.BusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BusViewModel @Inject constructor(
-    private val busUseCase: BusUseCase
+    private val busUseCase: BusUseCase,
+    private val busStationUseCase: BusStationUseCase
 ) : ViewModel() {
 
 
@@ -57,6 +60,7 @@ class BusViewModel @Inject constructor(
                     "yslee",
                     "getBusRouteList error > ${result.message}"
                 )
+                is BusStationResult.Loading -> {}
             }
         }
     }
@@ -96,7 +100,64 @@ class BusViewModel @Inject constructor(
                     "yslee",
                     "getStaionByRoute error > ${result.message}"
                 )
+                is BusStationResult.Loading -> {}
             }
         }
     }
+
+    fun getLowStationByUid(arsId: String) {
+//        viewModelScope.launch {
+//            when(val result = busUseCase.getLowStationByUid(arsId)) {
+//                is BusStationResult.Success -> {
+//                    Log.d("yslee","getLowStationByUid > ${result.busStationInfo}")
+//                }
+//                is BusStationResult.Empty -> {}
+//                is BusStationResult.Error -> {
+//                    Log.d("yslee","getLowStationByUid error > ${result.message}")
+//                }
+//            }
+//        }
+    }
+
+    fun getStationByName(){
+        val name = "화양"
+        viewModelScope.launch {
+            when(val result = busStationUseCase.getStationByName(name)) {
+                is BusStationResult.Loading -> {
+                    Log.d("yslee","getStationByName loading...")
+                }
+                is BusStationResult.Success -> {
+                    Log.d("yslee","getStationByName success > ${result}")
+                }
+                is BusStationResult.Error -> {
+                    Log.e("yslee","getStationByName error > ${result.message}")
+                }
+                is BusStationResult.Empty -> {
+                    Log.d("yslee","getStationByName empty")
+                }
+            }
+        }
+    }
+
+    fun getStationByUid(){
+        val arsId = "12121"
+        viewModelScope.launch {
+            when(val result = busStationUseCase.getStationByUid(arsId)){
+                is ApiResult.Loading -> {
+                    Log.d("yslee","getStationByUid loading")
+                }
+                is ApiResult.Success -> {
+                    Log.d("yslee","getStationByUid success > ${result.data}")
+                }
+                is ApiResult.Error -> {
+                    Log.e("yslee","getStationByUid error > ${result.message}")
+                }
+                is ApiResult.Empty -> {
+                    Log.d("yslee","getStationByUid empty")
+                }
+            }
+        }
+    }
+
+
 }

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@{itemTransportSearchBusInfo.busRouteNm}"
+            android:text="@{itemTransportSearchBusInfo.stationNm}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@{itemTransportSearchBusInfo.edationNm}"
+            android:text="@{itemTransportSearchBusInfo.stationNm}"
             app:layout_constraintBottom_toBottomOf="@id/tv_stStationNm"
             app:layout_constraintStart_toEndOf="@id/iv_arrow"
             app:layout_constraintTop_toTopOf="@id/tv_stStationNm" />

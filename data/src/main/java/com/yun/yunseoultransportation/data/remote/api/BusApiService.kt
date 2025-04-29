@@ -4,7 +4,7 @@ import com.yun.yunseoultransportation.data.model.bus.busPosByRtid.BusPosByRtidRe
 import com.yun.yunseoultransportation.data.model.bus.busPosByVehId.BusPosByVehIdResponse
 import com.yun.yunseoultransportation.data.model.bus.busRouteList.BusRouteListResponse
 import com.yun.yunseoultransportation.data.model.bus.routePath.RoutePathResponse
-import com.yun.yunseoultransportation.data.model.bus.staionByRoute.StaionByRouteResponse
+import com.yun.yunseoultransportation.data.model.bus.stationByRoute.StationByRouteResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -52,5 +52,13 @@ interface BusApiService {
         @Query("busRouteId") busRouteId: String,
         @Query("serviceKey") serviceKey: String = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
         @Query("resultType") resultType: String = "json"
-    ): Response<StaionByRouteResponse>
+    ): Response<StationByRouteResponse>
+
+//    // 고유번호에 해당하는 정류소의 저상버스 도착정보 조회
+//    @GET("stationinfo/getStationByUid")
+//    suspend fun getLowStationByUid(
+//        @Query("arsId") arsId: String,
+//        @Query("serviceKey") serviceKey: String = "nHxMfmtyTjtuCvjAcPez7bDwl+PwLECo/F2/Lp92vVDqrtlW4KTvdmMMqZiXWu5zyrP6ehOEnYoeG6hpdbSA8w==",
+//        @Query("resultType") resultType: String = "json"
+//    ): Response<LowStationByUidResponse>
 }

@@ -67,9 +67,9 @@ class MapFragment : BaseFragment<FragmentMapBinding, MapViewModel>(), OnMapReady
 
                 override fun onSelectedItem(item: BusStationInfo) {
                     // 버스 정보 처리
-                    viewModel.getRoutePath(item.busRouteId)
-                    viewModel.getBusPosByRtid(item.busRouteId)
-                    viewModel.getStaionByRoute(item.busRouteId)
+//                    viewModel.getRoutePath(item.busRouteId)
+//                    viewModel.getBusPosByRtid(item.busRouteId)
+//                    viewModel.getStaionByRoute(item.busRouteId)
                     routeSearchDialog.dismiss()
                     countDownManager.stopCountDown()
                 }

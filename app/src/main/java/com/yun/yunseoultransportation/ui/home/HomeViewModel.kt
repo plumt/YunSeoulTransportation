@@ -55,6 +55,7 @@ private val _nowWeather = MutableStateFlow<UiState<NowWeatherData>>(UiState())
                     "yslee",
                     "getBusRouteList error > ${result.message}"
                 )
+                is BusStationResult.Loading -> {}
             }
         }
     }

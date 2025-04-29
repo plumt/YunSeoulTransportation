@@ -99,4 +99,21 @@ class BusRepositoryImpl @Inject constructor(
             BusStationResult.Error(e.message ?: "getBusRouteList error")
         }
     }
+
+//    override suspend fun getLowStationByUid(arsId: String): BusStationResult {
+//        return try {
+//            val response = busDataSource.getLowStationByUid(arsId)
+//            if (response.isSuccessful) {
+//                response.body()?.let { responseBody ->
+//                    val busStationInfo = responseBody.msgBody.itemList.toBusStationInfoList()
+//                    BusStationResult.Success(busStationInfo)
+//                } ?: BusStationResult.Empty
+//            } else {
+//                BusStationResult.Error(response.message())
+//            }
+//
+//        } catch (e: Exception) {
+//            BusStationResult.Error(e.message ?: "getLowStationByUid error")
+//        }
+//    }
 }

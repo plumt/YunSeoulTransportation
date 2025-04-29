@@ -32,10 +32,10 @@ data class NaverMarker(
 fun List<BusStationInfo>.toBusStationMarker(): List<NaverMarker> =
     this.map { item ->
         NaverMarker(
-            id = item.id,
-            latitude = item.latitude,
-            longitude = item.longitude,
-            title = item.busRouteNm
+            id = item.arsId,
+            latitude = item.latitude!!,
+            longitude = item.longitude!!,
+            title = item.stationNm
         )
     }
 

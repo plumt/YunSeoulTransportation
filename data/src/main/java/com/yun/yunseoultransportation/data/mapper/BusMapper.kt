@@ -2,7 +2,6 @@ package com.yun.yunseoultransportation.data.mapper
 
 import com.yun.yunseoultransportation.data.model.bus.BusInfoDto
 import com.yun.yunseoultransportation.data.model.bus.BusPathInfoDto
-import com.yun.yunseoultransportation.data.model.bus.BusStationInfoDto
 import com.yun.yunseoultransportation.domain.model.bus.BusInfo
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationInfo
 import com.yun.yunseoultransportation.domain.model.path.BusPathInfo
@@ -12,31 +11,48 @@ class BusMapper {
     companion object {
 
         @JvmName("staionByRouteToBusStationInfo")
-        fun List<com.yun.yunseoultransportation.data.model.bus.staionByRoute.ItemList>.toBusStationInfoList(): List<BusStationInfo> =
+        fun List<com.yun.yunseoultransportation.data.model.bus.stationByRoute.ItemList>.toBusStationInfoList(): List<BusStationInfo> =
             map { item ->
-                BusStationInfoDto(
+                BusStationInfo(
                     latitude = item.gpsY,
                     longitude = item.gpsX,
-                    busRouteNm = item.busRouteNm,
+                    arsId = item.arsId,
+//                    busRouteNm = item.busRouteNm,
                     stationNm = item.stationNm,
-                    edationNm = "",
-                    id = item.station,
-                    busRouteId = item.busRouteId
-                ).toBusStationInfo()
+//                    edationNm = "",
+//                    id = item.station,
+//                    busRouteId = item.busRouteId
+                )
             }
 
         @JvmName("busRouteListToBusStationInfo")
         fun List<com.yun.yunseoultransportation.data.model.bus.busRouteList.ItemList>.toBusStationInfoList(): List<BusStationInfo> =
             map { item ->
-                BusStationInfoDto(
-                    id = item.busRouteId,
-                    busRouteNm = item.busRouteNm,
+                BusStationInfo(
+//                    id = item.busRouteId,
+//                    busRouteNm = item.busRouteAbrv,
                     stationNm = item.stStationNm,
-                    edationNm = item.edStationNm,
+//                    edationNm = item.edStationNm,
                     latitude = "",
                     longitude = "",
-                    busRouteId = item.busRouteId
-                ).toBusStationInfo()
+                    arsId = ""
+//                    busRouteId = item.busRouteId
+                )
+            }
+
+        @JvmName("lowStationByUidToBusStationInfo")
+        fun List<com.yun.yunseoultransportation.data.model.bus.lowStationByUid.ItemList>.toBusStationInfoList(): List<BusStationInfo> =
+            map { item ->
+                BusStationInfo(
+//                    id = item.stId,
+//                    busRouteNm = item.rtNm,
+                    stationNm = item.busRouteAbrv,
+//                    edationNm = "",
+                    latitude = item.posY,
+                    longitude = item.posX,
+//                    busRouteId = item.busRouteId,
+                    arsId = item.arsId
+                )
             }
 
         fun List<com.yun.yunseoultransportation.data.model.bus.routePath.ItemList>.toBusPathInfoList(): List<BusPathInfo> =

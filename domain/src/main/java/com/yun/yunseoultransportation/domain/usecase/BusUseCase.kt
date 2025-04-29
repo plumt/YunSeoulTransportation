@@ -29,4 +29,9 @@ class BusUseCase @Inject constructor(
     suspend fun getBusRouteList(strSrch: String): BusStationResult {
         return busRepository.getBusRouteList(strSrch)
     }
+
+//    suspend fun getLowStationByUid(arsId: String): BusStationResult {
+//        return busRepository.getLowStationByUid(arsId)
+//    }
+
 }

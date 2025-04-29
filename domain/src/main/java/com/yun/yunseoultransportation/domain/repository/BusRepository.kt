@@ -10,4 +10,5 @@ interface BusRepository {
     suspend fun getBusPosByRtid(busRouteId: String): BusResult
     suspend fun getBusRouteList(strSrch: String): BusStationResult
     suspend fun getRoutePath(busRouteId: String): BusPathResult
+//    suspend fun getLowStationByUid(arsId: String): BusStationResult
 }
