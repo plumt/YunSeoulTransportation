@@ -10,78 +10,84 @@ import com.yun.yunseoultransportation.domain.model.busStation.BusStationDetail
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationResult
 import com.yun.yunseoultransportation.domain.model.busStation.BusStationRoute
 import com.yun.yunseoultransportation.domain.repository.BusStationRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class BusStationRepositoryImpl @Inject constructor(
     private val busStationDataSource: BusStationDataSource,
 ) : BusStationRepository {
 
-    override suspend fun getRouteByStation(arsId: String): ApiResult<List<BusStationRoute>> {
-        ApiResult.Loading
-        return try {
-            val response = busStationDataSource.getRouteByStation(arsId)
-            if (response.isSuccessful) {
-                response.body()?.msgBody?.itemList?.let { item ->
-                    val busStationRoute = item.toBusStationRouteList()
-                    ApiResult.Success(busStationRoute)
-                } ?: ApiResult.Empty
-            } else {
-                ApiResult.Error(response.message())
+    override suspend fun getRouteByStation(arsId: String): Flow<ApiResult<List<BusStationRoute>>> =
+        flow {
+            try {
+                emit(ApiResult.Loading)
+                val response = busStationDataSource.getRouteByStation(arsId)
+                if (response.isSuccessful) {
+                    response.body()?.msgBody?.itemList?.let { item ->
+                        val busStationRoute = item.toBusStationRouteList()
+                        emit(ApiResult.Success(busStationRoute))
+                    } ?: emit(ApiResult.Empty)
+                } else {
+                    emit(ApiResult.Error(response.message()))
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "getRouteByStation error"))
             }
-        } catch (e: Exception) {
-            ApiResult.Error(e.message ?: "getRouteByStation error")
         }
-    }
 
-    override suspend fun getStationByName(stSrch: String): BusStationResult {
-        BusStationResult.Loading
-        return try {
+    override suspend fun getStationByName(stSrch: String): Flow<BusStationResult> = flow {
+        try {
+            emit(BusStationResult.Loading)
             val response = busStationDataSource.getStationByName(stSrch)
             if (response.isSuccessful) {
                 response.body()?.msgBody?.itemList?.let { item ->
                     val busStationInfo = item.toBusStationInfoList()
-                    BusStationResult.Success(busStationInfo)
-                } ?: BusStationResult.Empty
+                    emit(BusStationResult.Success(busStationInfo))
+                } ?: emit(BusStationResult.Empty)
             } else {
-                BusStationResult.Error(response.message())
+                emit(BusStationResult.Error(response.message()))
             }
         } catch (e: Exception) {
-            BusStationResult.Error(e.message ?: "getStationByName error")
+            emit(BusStationResult.Error(e.message ?: "getStationByName error"))
         }
     }
 
-    override suspend fun getStationByUid(arsId: String): ApiResult<List<BusStationDetail>> {
-        ApiResult.Loading
-        return try {
-            val response = busStationDataSource.getStationByUid(arsId)
-            if (response.isSuccessful) {
-                response.body()?.msgBody?.itemList?.let { item ->
-                    val busStationDetail = item.toBusStationDetailList()
-                    ApiResult.Success(busStationDetail)
-                } ?: ApiResult.Empty
-            } else {
-                ApiResult.Error(response.message())
+    override suspend fun getStationByUid(arsId: String): Flow<ApiResult<List<BusStationDetail>>> =
+        flow {
+            try {
+                emit(ApiResult.Loading)
+                val response = busStationDataSource.getStationByUid(arsId)
+                if (response.isSuccessful) {
+                    response.body()?.msgBody?.itemList?.let { item ->
+                        val busStationDetail = item.toBusStationDetailList()
+                        emit(ApiResult.Success(busStationDetail))
+                    } ?: emit(ApiResult.Empty)
+                } else {
+                    emit(ApiResult.Error(response.message()))
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "getStationByUid error"))
             }
-        } catch (e: Exception) {
-            ApiResult.Error(e.message ?: "getStationByUid error")
         }
-    }
 
-    override suspend fun getBustimeByStation(arsId: String, busRouteId: String): BusStationResult {
-        BusStationResult.Loading
-        return try {
+    override suspend fun getBustimeByStation(
+        arsId: String,
+        busRouteId: String,
+    ): Flow<BusStationResult> = flow {
+        try {
+            emit(BusStationResult.Loading)
             val response = busStationDataSource.getBustimeByStation(arsId, busRouteId)
             if (response.isSuccessful) {
                 response.body()?.msgBody?.itemList?.let { item ->
                     val busStationInfo = item.toBusStationInfo()
-                    BusStationResult.Success(busStationInfo)
-                } ?: BusStationResult.Empty
+                    emit(BusStationResult.Success(busStationInfo))
+                } ?: emit(BusStationResult.Empty)
             } else {
-                BusStationResult.Error(response.message())
+                emit(BusStationResult.Error(response.message()))
             }
-
         } catch (e: Exception) {
-            BusStationResult.Error(e.message ?: "getBustimeByStation error")
+            emit(BusStationResult.Error(e.message ?: "getBustimeByStation error"))
         }
     }
 
@@ -89,20 +95,20 @@ class BusStationRepositoryImpl @Inject constructor(
         tmX: String,
         tmY: String,
         radius: String,
-    ): BusStationResult {
-        BusStationResult.Loading
-        return try {
+    ): Flow<BusStationResult> = flow {
+        try {
+            emit(BusStationResult.Loading)
             val response = busStationDataSource.getStationByPos(tmX, tmY, radius)
             if (response.isSuccessful) {
                 response.body()?.msgBody?.itemList?.let { item ->
                     val busStationInfo = item.toBusStationInfo()
-                    BusStationResult.Success(busStationInfo)
-                } ?: BusStationResult.Empty
+                    emit(BusStationResult.Success(busStationInfo))
+                } ?: emit(BusStationResult.Empty)
             } else {
-                BusStationResult.Error(response.message())
+                emit(BusStationResult.Error(response.message()))
             }
         } catch (e: Exception) {
-            BusStationResult.Error(e.message ?: "getStationByPos error")
+            emit(BusStationResult.Error(e.message ?: "getStationByPos error"))
         }
     }
 }

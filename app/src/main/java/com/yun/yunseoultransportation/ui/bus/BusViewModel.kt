@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BusViewModel @Inject constructor(
     private val busUseCase: BusUseCase,
-    private val busStationUseCase: BusStationUseCase
+    private val busStationUseCase: BusStationUseCase,
 ) : ViewModel() {
 
 
@@ -60,6 +60,7 @@ class BusViewModel @Inject constructor(
                     "yslee",
                     "getBusRouteList error > ${result.message}"
                 )
+
                 is BusStationResult.Loading -> {}
             }
         }
@@ -100,6 +101,7 @@ class BusViewModel @Inject constructor(
                     "yslee",
                     "getStaionByRoute error > ${result.message}"
                 )
+
                 is BusStationResult.Loading -> {}
             }
         }
@@ -119,41 +121,54 @@ class BusViewModel @Inject constructor(
 //        }
     }
 
-    fun getStationByName(){
-        val name = "화양"
+    // 명칭별 정류소 목록 조회
+    fun getStationByName(stationName: String) {
         viewModelScope.launch {
-            when(val result = busStationUseCase.getStationByName(name)) {
-                is BusStationResult.Loading -> {
-                    Log.d("yslee","getStationByName loading...")
+            busStationUseCase.getStationByName(stationName)
+                .collect { result ->
+                    when (result) {
+                        is BusStationResult.Loading -> {
+                            Log.d("yslee", "getStationByName loading...")
+                        }
+
+                        is BusStationResult.Success -> {
+                            Log.d("yslee", "getStationByName success > ${result.busStationInfo}")
+                        }
+
+                        is BusStationResult.Error -> {
+                            Log.e("yslee", "getStationByName error > ${result.message}")
+                        }
+
+                        is BusStationResult.Empty -> {
+                            Log.d("yslee", "getStationByName empty")
+                        }
+                    }
                 }
-                is BusStationResult.Success -> {
-                    Log.d("yslee","getStationByName success > ${result}")
-                }
-                is BusStationResult.Error -> {
-                    Log.e("yslee","getStationByName error > ${result.message}")
-                }
-                is BusStationResult.Empty -> {
-                    Log.d("yslee","getStationByName empty")
-                }
-            }
         }
     }
 
-    fun getStationByUid(){
+    // 고유번호별 정류소 항목 조회
+    fun getStationByUid() {
         val arsId = "12121"
         viewModelScope.launch {
-            when(val result = busStationUseCase.getStationByUid(arsId)){
-                is ApiResult.Loading -> {
-                    Log.d("yslee","getStationByUid loading")
-                }
-                is ApiResult.Success -> {
-                    Log.d("yslee","getStationByUid success > ${result.data}")
-                }
-                is ApiResult.Error -> {
-                    Log.e("yslee","getStationByUid error > ${result.message}")
-                }
-                is ApiResult.Empty -> {
-                    Log.d("yslee","getStationByUid empty")
+
+            busStationUseCase.getStationByUid(arsId).collect { result ->
+                when (result) {
+                    is ApiResult.Loading -> {
+                        Log.d("yslee", "getStationByUid loading")
+                    }
+
+                    is ApiResult.Success -> {
+                        Log.d("yslee", "getStationByUid success > ${result.data}")
+                    }
+
+                    is ApiResult.Error -> {
+                        Log.e("yslee", "getStationByUid error > ${result.message}")
+                    }
+
+                    is ApiResult.Empty -> {
+                        Log.d("yslee", "getStationByUid empty")
+                    }
                 }
             }
         }

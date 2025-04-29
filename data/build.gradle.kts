@@ -29,6 +29,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.7.1")
     implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
     // 크롤링
     implementation("org.jsoup:jsoup:1.11.3")
 }

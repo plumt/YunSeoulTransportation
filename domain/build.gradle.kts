@@ -18,5 +18,5 @@ kotlin {
 dependencies {
     implementation("com.google.dagger:hilt-core:2.49")
     kapt("com.google.dagger:hilt-compiler:2.49")
-
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
